@@ -8,10 +8,23 @@ The generator parses a YAML file which contain a use-case description. Json-sche
 name: use case 1
 description: a description
 parameters:
-  - title: param1
+  param1:
     type: string
-  - $ref: "./param2.yml" 
+  param2:
+    $ref: "./param2.yml" 
+response:
+  $ref: "./response.yml" 
 ```
+
+## Convention
+
+1. File name is the use-case name;
+2. Use-case name can be overwritten by the name property in YAML file.
+3. Parameters and response are optional.
+4. Use-case is a command when there is no response specified;
+5. Use-case is a query when a response is specified;
+6. Parameters is a key / value collection. The value is a json-schema basic type.
+7. Response is a json-schema basic type.
 
 ## Requirements
 
@@ -31,3 +44,9 @@ parameters:
 * Create best practice C# code;
 * Support easy code language extension;
 * Support easy template overrides;
+
+
+## Links
+
+* json-schema bundling: https://apitools.dev/json-schema-ref-parser/docs/ref-parser.html
+* multi-language type generator: https://github.com/quicktype/quicktype/blob/master/FAQ.md
