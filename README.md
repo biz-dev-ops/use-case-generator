@@ -28,18 +28,19 @@ response:
 
 ## Requirements
 
+* Use node.js for development;
 * Support recursive references;
 * Implement AllOf convention: 
   * If there are exactly two objects, the first object is the base class.
-  * If there are more than two objects create a new type. 
+  * If there are more than two objects, create a new type. 
 * Implement AnyOf convention: 
   * Find the shared base type and use that type as the parameter type.
   * Generate inline use-case documentation which specify the possible implementations of the parameter. 
 * Use open-source model generators if possible;
 * Use open-source API generators if possible;
 * Support hexagonal architecture;
-* Create use-cases and models in domain module;
-* Expose use-cases in API adapter module;
+* Create use-case and models in domain module;
+* Expose use-case in API adapter module;
 * Create best practice Java code;
 * Create best practice C# code;
 * Support easy code language extension;
