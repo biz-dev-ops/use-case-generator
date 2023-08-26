@@ -27,7 +27,7 @@ response:
 OpenAPI schemas reference the use-case schemas so that the OpenAPI generator can use the domain models as parameters or create mapping code to map the adapter models to the domain models. With that code in place, it is possible to create also an implementation of the generated interface which executes the use-case.
 
 ```yaml
-penapi: 3.0.3
+openapi: 3.0.3
 
 info:
   version: 0.0.1
