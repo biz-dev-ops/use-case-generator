@@ -56,7 +56,7 @@ paths:
           name: offset
           required: false
           schema:
-            $ref: "./get-resources.use-case.yml#/parameters/offset"\
+            $ref: "./get-resources.use-case.yml#/parameters/offset"
       responses:
         200:
           description: OK
