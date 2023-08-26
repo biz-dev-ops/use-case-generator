@@ -1,6 +1,6 @@
 # Use-case generator
 
-> Use-case first development: first create the use-case specification and then create the adapter specification which expose the use-case.
+> Use-case first development: first create the use-case specification and then create the adapter specification which exposes the use-case.
 
 With use-case first development instead of API first development we are solving the following problems:
 
@@ -66,7 +66,6 @@ paths:
                 $ref: "./get-resources.use-case.yml#/response"
 ```
 
-
 ## Convention
 
 1. File name is the use-case name;
@@ -87,6 +86,7 @@ paths:
 * Implement OneOf convention: 
   * Find the shared base type and use that type as the parameter type.
   * Generate inline use-case documentation which specify the possible implementations of the parameter (or create new base type because it is possible that not all implementations are allowed?). 
+* Linting support to detect where the API schema and use-case scheme does not allign.
 * Use open-source model generators if possible;
 * Use open-source API generators if possible;
 * Support hexagonal architecture;
@@ -96,7 +96,6 @@ paths:
 * Create best practice C# code;
 * Support easy code language extension;
 * Support easy template overrides;
-
 
 ## Links
 
