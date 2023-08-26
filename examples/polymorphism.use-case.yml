@@ -1,0 +1,5 @@
+parameters:
+  animals:
+    $ref: "./data-dictionary/animals.yml#/animals"
+response:
+    $ref: "./data-dictionary/animals.yml#/animals"

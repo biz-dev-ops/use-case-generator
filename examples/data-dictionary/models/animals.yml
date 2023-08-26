@@ -1,0 +1,31 @@
+animals:
+  oneOf:
+    - $ref: "#/dog"
+    - $ref: "#/cat"
+    - $ref: "#/cow"
+  discriminator:
+    propertyName: object_type
+
+dog:
+  title: dog
+  allOf:
+    - $ref: "#/animal"
+
+cat:
+  title: cat
+  allOf:
+    - $ref: "#/animal"
+
+cow:
+  title: cow
+  allOf:
+    - $ref: "#/animal"
+
+animal:
+  allOf:
+    - $ref: "../base/base-type.yml"
+    - title: animal
+      type: object
+      properties:
+        sound:
+          type: string

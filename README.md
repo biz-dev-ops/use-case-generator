@@ -31,11 +31,11 @@ response:
 * Use node.js for development;
 * Support recursive references;
 * Implement AllOf convention: 
-  * If there are exactly two objects, the first object is the base class.
+  * If there are one or two objects, the first object is the base class.
   * If there are more than two objects, create a new type. 
-* Implement AnyOf convention: 
+* Implement OneOf convention: 
   * Find the shared base type and use that type as the parameter type.
-  * Generate inline use-case documentation which specify the possible implementations of the parameter. 
+  * Generate inline use-case documentation which specify the possible implementations of the parameter (or create new base type because it is possible that not all implementations are allowed?). 
 * Use open-source model generators if possible;
 * Use open-source API generators if possible;
 * Support hexagonal architecture;

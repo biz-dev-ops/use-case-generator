@@ -1,0 +1,36 @@
+openapi: 3.0.3
+
+info:
+  version: 0.0.1
+  title: Animals API
+paths:
+
+  /animals/{path_param}:
+    parameters:
+      - in: path
+        name: path_param
+        required: true
+        schema:
+          $ref: "./get-animals.use-case.yml#/parameters/path_param"
+      - in: query
+        name: limit
+        required: false
+        schema:
+          $ref: "./get-animals.use-case.yml#/parameters/limit"
+      - in: query
+        name: offset
+        required: false
+        schema:
+          $ref: "./get-animals.use-case.yml#/parameters/offset"
+    get:
+      tags:
+        - animals
+      summary: Retrieves animals.
+      operationId: GetAnimals
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./get-animals.use-case.yml#/response"

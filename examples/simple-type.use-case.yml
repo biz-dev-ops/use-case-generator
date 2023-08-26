@@ -1,0 +1,5 @@
+parameters:
+  param:
+    type: string
+response:
+  type: string

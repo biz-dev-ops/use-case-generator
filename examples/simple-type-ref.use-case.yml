@@ -1,0 +1,5 @@
+parameters:
+  param:
+    $ref: "./data-dictionary/string-type.yml"
+response:
+    $ref: "./data-dictionary/string-type.yml"
