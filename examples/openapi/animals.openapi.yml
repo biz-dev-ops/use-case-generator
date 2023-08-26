@@ -5,28 +5,29 @@ info:
   title: Animals API
 paths:
 
-  /animals/{path_param}:
+  /animals/{filter}:
     parameters:
       - in: path
-        name: path_param
+        name: filter
         required: true
         schema:
-          $ref: "./get-animals.use-case.yml#/parameters/path_param"
-      - in: query
-        name: limit
-        required: false
-        schema:
-          $ref: "./get-animals.use-case.yml#/parameters/limit"
-      - in: query
-        name: offset
-        required: false
-        schema:
-          $ref: "./get-animals.use-case.yml#/parameters/offset"
+          $ref: "./get-animals.use-case.yml#/parameters/filter"
     get:
       tags:
         - animals
       summary: Retrieves animals.
       operationId: GetAnimals
+      parameters:
+        - in: query
+          name: limit
+          required: false
+          schema:
+            $ref: "./get-animals.use-case.yml#/parameters/limit"
+        - in: query
+          name: offset
+          required: false
+          schema:
+            $ref: "./get-animals.use-case.yml#/parameters/offset"
       responses:
         200:
           description: OK

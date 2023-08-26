@@ -1,8 +1,16 @@
 # Use-case generator
 
-> Use-case first development: first create the use-case specification and secondly create an Open API specification which references the use-case parameters. 
+> Use-case first development: first create the use-case specification and then create the adapter specification which expose the use-case.
 
-The generator parses a YAML file which contain a use-case description. Json-schema is used to specify the use-case parameters. The parsed use-case specification is used to generate the use-case interface as well as the parameter models.
+With use-case first development instead of API first development we are solving the following problems:
+
+1. **API blind spots**: Not all use-cases are exposed via a REST API.
+2. **Manual use-case generation**: Use-cases are created manually introducing the risk that they do not align with business (requirements).  
+3. **Mapping hell**: Because the API generated models live in an adapter layer they cannot be used in the domain layer. The same models need to be created in, and mapped to, the domain layer resulting in unnecessary use of scarce development resources.
+
+## Solution
+
+The code generator parses a YAML file which contain a use-case description. Json-schema is used to specify the use-case parameters and response. The parsed use-case specification is used to generate the use-case interface as well as the parameter and response models.
 
 ```yaml
 name: use case 1
@@ -16,6 +24,49 @@ response:
   $ref: "./response.yml" 
 ```
 
+OpenAPI schemas reference the use-case schemas so that the OpenAPI generator can use the domain models as parameters or create mapping code to map the adapter models to the domain models. With that code in place, it is possible to create also an implementation of the generated interface which executes the use-case.
+
+```yaml
+penapi: 3.0.3
+
+info:
+  version: 0.0.1
+  title: API
+paths:
+
+  /resources/{filter}:
+    parameters:
+      - in: path
+        name: filter
+        required: true
+        schema:
+          $ref: "./get-resources.use-case.yml#/parameters/filter"
+    get:
+      tags:
+        - resources
+      summary: Retrieves resources.
+      operationId: GetResources
+      parameters:
+        - in: query
+          name: limit
+          required: false
+          schema:
+            $ref: "./get-resources.use-case.yml#/parameters/limit"
+        - in: query
+          name: offset
+          required: false
+          schema:
+            $ref: "./get-resources.use-case.yml#/parameters/offset"\
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "./get-resources.use-case.yml#/response"
+```
+
+
 ## Convention
 
 1. File name is the use-case name;
@@ -23,8 +74,8 @@ response:
 3. Parameters and response are optional.
 4. Use-case is a command when there is no response specified;
 5. Use-case is a query when a response is specified;
-6. Parameters is a key / value collection. The value is a json-schema basic type.
-7. Response is a json-schema basic type.
+6. Parameters is a key / value collection. The value is a Json-schema basic type.
+7. Response is a Json-schema basic type.
 
 ## Requirements
 
@@ -49,5 +100,5 @@ response:
 
 ## Links
 
-* json-schema bundling: https://apitools.dev/json-schema-ref-parser/docs/ref-parser.html
+* Json-schema bundling: https://apitools.dev/json-schema-ref-parser/docs/ref-parser.html
 * multi-language type generator: https://github.com/quicktype/quicktype/blob/master/FAQ.md

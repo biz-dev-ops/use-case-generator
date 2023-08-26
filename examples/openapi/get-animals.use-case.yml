@@ -1,5 +1,5 @@
 parameters:
-  path_param:
+  filter:
     $ref: "../data-dictionary/types/string-type.yml"
   limit:
     $ref: "../data-dictionary/base/limit.yml"

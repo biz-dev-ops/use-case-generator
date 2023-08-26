@@ -1,0 +1,6 @@
+.vscode/
+.temp/
+*.bkp
+*.dtmp
+.DS_Store
+**/.idea/
