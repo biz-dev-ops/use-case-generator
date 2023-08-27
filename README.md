@@ -10,71 +10,7 @@ With use-case first development instead of API first development we are solving 
 
 ## Solution
 
-The code generator parses a YAML file which contain a use-case description. Json-schema is used to specify the use-case parameters and response. The parsed use-case specification is used to generate the use-case interface as well as the parameter and response models.
-
-```yaml
-name: use case 1
-description: a description
-parameters:
-  param1:
-    type: string
-  param2:
-    $ref: "./param2.yml" 
-response:
-  $ref: "./response.yml" 
-```
-
-OpenAPI schemas reference the use-case schemas so that the OpenAPI generator can use the domain models as parameters or create mapping code to map the adapter models to the domain models. With that code in place, it is possible to create also an implementation of the generated interface which executes the use-case.
-
-```yaml
-penapi: 3.0.3
-
-info:
-  version: 0.0.1
-  title: API
-paths:
-
-  /resources/{filter}:
-    parameters:
-      - in: path
-        name: filter
-        required: true
-        schema:
-          $ref: "./get-resources.use-case.yml#/parameters/filter"
-    get:
-      tags:
-        - resources
-      summary: Retrieves resources.
-      operationId: GetResources
-      parameters:
-        - in: query
-          name: limit
-          required: false
-          schema:
-            $ref: "./get-resources.use-case.yml#/parameters/limit"
-        - in: query
-          name: offset
-          required: false
-          schema:
-            $ref: "./get-resources.use-case.yml#/parameters/offset"
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "./get-resources.use-case.yml#/response"
-```
-
-## Convention
-
-1. File name is the use-case name;
-2. Use-case name can be overwritten by the name property in YAML file.
-3. Parameters and response are optional.
-4. Use-case is a command when there is no response specified;
-5. Use-case is a query when a response is specified;
-6. Parameters is a key / value collection. The value is a Json-schema basic type.
-7. Response is a Json-schema basic type.
+...
 
 ## Requirements
 
@@ -86,7 +22,7 @@ paths:
 * Implement OneOf convention: 
   * Find the shared base type and use that type as the parameter type.
   * Generate inline use-case documentation which specify the possible implementations of the parameter (or create new base type because it is possible that not all implementations are allowed?). 
-* Linting support to detect where the API schema and use-case scheme does not allign.
+* Linting support to detect where the API schema and use-case scheme does not align.
 * Use open-source model generators if possible;
 * Use open-source API generators if possible;
 * Support hexagonal architecture;

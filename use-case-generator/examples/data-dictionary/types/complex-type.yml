@@ -1,0 +1,15 @@
+type: object
+properties:
+  property1:
+    type: string
+  property2:
+    type: number
+  property3:
+    type: integer
+  property4:
+    type: boolean
+  property5:
+    type: array
+    items:
+      type: string
+  
