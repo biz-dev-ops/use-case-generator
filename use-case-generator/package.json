@@ -1,0 +1,21 @@
+{
+  "name": "use-case-generator",
+  "version": "0.0.1",
+  "description": "The code generator parses a YAML file which contains a use-case description. Json-schema is used to specify the use-case parameters and response. The parsed use-case specification is used to generate the use-case interface as well as the parameter and response types.",
+  "main": "bin/index.js",
+  "files": [
+    "bin/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arjan Geertsema",
+  "license": "Apache 2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/biz-dev-ops/use-case-generator"
+  },
+  "bin": {
+    "gu": "bin/index.js"
+  }
+}
