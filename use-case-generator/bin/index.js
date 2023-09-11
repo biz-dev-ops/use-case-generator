@@ -14,7 +14,7 @@ const main = async () => {
         const options = parseArgs(getArgs());
         container = initContainer(options);
         
-        let app = container.resolve("app");
+        let app = container.cradle.app;
         await app.run();
         app = null;
     } 
