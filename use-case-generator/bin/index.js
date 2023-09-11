@@ -14,8 +14,9 @@ const main = async () => {
         const options = parseArgs(getArgs());
         container = initContainer(options);
         
-        const app = container.resolve("app");
+        let app = container.resolve("app");
         await app.run();
+        app = null;
     } 
     finally {
         await container?.dispose();
