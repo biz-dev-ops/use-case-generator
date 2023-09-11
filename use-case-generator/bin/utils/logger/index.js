@@ -20,10 +20,10 @@ module.exports = class Logger {
         });
     }
 
-    fatal(message) { this.logger.fatal(message); }
-    error(message) { this.logger.error(message); }
-    warn(message) { this.logger.warn(message); }
-    info(message) { this.logger.info(message); }
-    debug(message) { this.logger.debug(message); }
-    trace(message) { this.logger.trace(message); }
+    fatal(message, ...interpolationValues) { this.logger.fatal(message, ...interpolationValues); }
+    error(message, ...interpolationValues) { this.logger.error(message, ...interpolationValues); }
+    warn(message, ...interpolationValues) { this.logger.warn(message, ...interpolationValues); }
+    info(message, ...interpolationValues) { this.logger.info(message, ...interpolationValues); }
+    debug(message, ...interpolationValues) { this.logger.debug(message, ...interpolationValues); }
+    trace(message, ...interpolationValues) { this.logger.trace(message, ...interpolationValues); }
 }

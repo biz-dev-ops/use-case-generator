@@ -18,7 +18,7 @@ module.exports = class App {
     }
 
     async run() {
-        this.logger.info("hello world!");
+        this.logger.info("hello %s!", "world");
         throw new Error("test");
     }
 
