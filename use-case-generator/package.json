@@ -17,5 +17,11 @@
   },
   "bin": {
     "gu": "bin/index.js"
+  },
+  "dependencies": {
+    "awilix": "^8.0.1",
+    "pino": "^8.15.1",
+    "pino-pretty": "^10.2.0",
+    "yargs": "^17.7.2"
   }
 }
