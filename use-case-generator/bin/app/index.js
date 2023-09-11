@@ -1,54 +1,37 @@
-const awilix = require('awilix');
-const { asClass, asValue } = require('awilix');
-
-const Logger = require("../utils/logger");
+const { createContainer, asValue, Lifetime } = require("awilix")
 
 module.exports = class App {
     constructor(args) {
-        this.container = awilix.createContainer({
-            injectionMode: awilix.InjectionMode.PROXY
-        });
-        
-        this._registerServices({
-            "options": asValue(parseArgs(args)),
-            "logger": asClass(Logger).singleton()
-        });
-
-        this.logger = this.container.resolve('logger');
+        this.container = initContainer(parseArgs(args));
+        this.logger = this.container.resolve("logger");
     }
 
     async run() {
         this.logger.info("hello %s!", "world");
-        throw new Error("test");
     }
 
     async dispose() {
-        this.container.dispose();
+        this.logger.info("Disposing app.");
+
+        await this.container.dispose();
         this.container = null;
 
-        this.logger.info("disposed");
-    }
+        this.logger.info("App is disposed.");
 
-    _registerServices(services) {
-        const parsed = {};
-
-        const parse = (resolver) => {
-            if (Array.isArray(resolver))
-                return asArray(resolver);    
-            
-            if (!resolver.disposer)
-                return resolver;
-            
-            return resolver.disposer?.(async service => await service.dispose?.());
-        }
-    
-        for (const [key, value] of Object.entries(services)) {
-            parsed[key] = parse(value);
-        }
-    
-        this.container.register(parsed);
+        this.logger = null
     }
 };
+
+const initContainer = (options) => createContainer()
+    .register("options", asValue(options))
+    .loadModules([
+        "utils/*.js"
+    ], {
+        resolverOptions: {
+            lifetime: Lifetime.SINGLETON,
+            dispose: async (service) => await service.dispose?.()
+        }
+    });
 
 const parseArgs = function(args) {
     return {

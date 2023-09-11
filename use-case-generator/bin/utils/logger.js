@@ -26,4 +26,8 @@ module.exports = class Logger {
     info(message, ...interpolationValues) { this.logger.info(message, ...interpolationValues); }
     debug(message, ...interpolationValues) { this.logger.debug(message, ...interpolationValues); }
     trace(message, ...interpolationValues) { this.logger.trace(message, ...interpolationValues); }
+
+    async dispose() {
+        this.logger.info("logger disposed!");
+    }
 }

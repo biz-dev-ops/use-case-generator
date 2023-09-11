@@ -1,5 +1,8 @@
 #! /usr/bin/env node
-const { hideBin } = require("yargs/helpers")
+
+const process = require("process");
+const path = require("path");
+const { hideBin } = require("yargs/helpers");
 const yargs = require("yargs");
 const App = require("./app");
 
@@ -7,6 +10,8 @@ const App = require("./app");
     let app;
 
     try {
+        process.chdir(path.join(process.cwd(), "bin"));
+
         const args = yargs(hideBin(process.argv))
             .option("language", {
                 alias: [ "lang", "l" ],
