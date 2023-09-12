@@ -1,8 +1,10 @@
-import { createContainer, BuildResolver, BuildResolverOptions, Constructor, DisposableResolver, Resolver, asClass, AwilixContainer, asFunction, InjectionMode } from "awilix";
+import { createContainer, BuildResolver, BuildResolverOptions, Constructor, DisposableResolver, Resolver, asClass, AwilixContainer, asFunction, InjectionMode, aliasTo } from "awilix";
 import { GetServicesPort, MyServices } from "../ports/GetServices";
 import { FsAdapter } from "./FsAdapter";
 import PinoAdapter from "./PinoAdapter";
 import { ArgsAdapter } from "./ArgsAdapter";
+import { CreateUseCaseCodeImpl } from "../domain/CreateUseCaseCodeImpl";
+import { GetUseCaseSchemaPortImpl } from "../ports/GetUseCaseSchema";
 
 export default class ProductionContainer implements GetServicesPort {
     private container: AwilixContainer<MyServices>;
@@ -11,7 +13,10 @@ export default class ProductionContainer implements GetServicesPort {
         this.container = createContainer<MyServices>({
                 injectionMode: InjectionMode.CLASSIC
             })
+            .register("createUseCaseCode", asDisposableClass(CreateUseCaseCodeImpl).singleton())
             .register("getOptionsPort", asDisposableClass(ArgsAdapter).singleton())
+            .register("getUseCaseSchemaPort", asDisposableClass(GetUseCaseSchemaPortImpl).singleton())
+            .register("getUseCaseFilesPort", aliasTo("getFileReferencePort"))
             .register("getFileReferencePort", asDisposableClass(FsAdapter).singleton())
             .register("logMessagePort", asDisposableClass(PinoAdapter).singleton());
     }

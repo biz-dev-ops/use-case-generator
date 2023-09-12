@@ -4,14 +4,14 @@ import { hideBin } from 'yargs/helpers';
 import { GetOptionsPort, LanguageOption, LoglevelOption, Options } from "../ports/GetOptions";
 
 export class ArgsAdapter implements GetOptionsPort {
-    private options: Options ;
+    private options?: Options;
 
-    constructor() {
-        const args = getArgs();
+   async getOptions(): Promise<Options> {
+        if(this.options)
+            return this.options;
+
+        const args = await getArgs();
         this.options = this.map(args);
-    }
-    
-    getOptions(): Options {
         return this.options;
     }
 
@@ -40,8 +40,8 @@ interface Args {
     loglevel: string
 }
 
-const getArgs = () : Args => {
-    const args = yargs(hideBin(process.argv))
+const getArgs = async () : Promise<Args> => {
+    const args = await yargs(hideBin(process.argv))
         .option("language", {
             alias: [ "lang", "l" ],
             describe: "Define code language to generate.",
@@ -72,7 +72,7 @@ const getArgs = () : Args => {
                 .filter((v) => isNaN(Number(v))),
             default: LoglevelOption[LoglevelOption.Warn]
         })
-        .parseSync();
+        .argv;
 
     return args as Args;
 }

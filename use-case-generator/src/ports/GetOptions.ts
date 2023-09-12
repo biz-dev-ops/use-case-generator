@@ -1,5 +1,5 @@
 export interface GetOptionsPort {
-    getOptions() : Options
+    getOptions() : Promise<Options>
 }
 
 export class Options {

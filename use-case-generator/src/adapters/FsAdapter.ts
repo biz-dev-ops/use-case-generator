@@ -1,17 +1,37 @@
-import { access, constants, lstat } from 'node:fs/promises';
-import { readFile } from 'node:fs/promises';
-import { parse } from "node:path";
-import { File, GetFileReferencePort } from '../ports/GetFileReference';
+import { access, constants, readdir, readFile, stat } from 'node:fs/promises';
+import { parse, join } from "node:path";
+import { load } from "js-yaml";
 
-export class FsAdapter implements GetFileReferencePort {
-    
+import { File, GetFileReferencePort } from '../ports/GetFileReference';
+import { GetUseCaseFilesPort } from '../ports/GetUseCaseFiles';
+
+export class FsAdapter implements GetFileReferencePort, GetUseCaseFilesPort {
     async getFileReference(path: string): Promise<File> {
         await access(path, constants.R_OK);
 
-        if(!(await lstat(path)).isFile())
+        if(!(await stat(path)).isFile())
             throw new Error(`Path is not a file: ${path}`);
 
         return new FsFile(path);
+    }
+
+    async getUseCaseFiles(path: string): Promise<string[]> {
+        const useCaseFiles: string[] = [];
+
+        if((await stat(path)).isDirectory()) {
+            const entries = await readdir(path, { withFileTypes: true });
+
+            for (let entry of entries) {
+                if(entry.isDirectory() || entry.name.endsWith(".use-case.yml")) {
+                    useCaseFiles.push(...await this.getUseCaseFiles(join(entry.path, entry.name)));
+                }
+            }
+        }
+        else if(path.endsWith(".use-case.yml")) {
+            useCaseFiles.push(path);
+        }
+
+        return useCaseFiles;
     }
 }
 
@@ -32,8 +52,13 @@ export class FsFile implements File {
     }
 
     async readJson() : Promise<any> {
-        const jsonString = await this.readString();
-        return JSON.parse(jsonString);
+        let content = await this.readString();
+        if(this.extension.endsWith(".yml") || this.extension.endsWith(".yaml")) {
+            return load(content) || {};
+        }
+        else {
+            return JSON.parse(content);
+        }
     }
 
     async readType<T>() : Promise<T> {
