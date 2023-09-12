@@ -6,7 +6,7 @@ import { GetOptionsPort, LanguageOption, LoglevelOption, Options } from "../port
 export class ArgsAdapter implements GetOptionsPort {
     private options?: Options;
 
-   async getOptions(): Promise<Options> {
+    async getOptions(): Promise<Options> {
         if(this.options)
             return this.options;
 

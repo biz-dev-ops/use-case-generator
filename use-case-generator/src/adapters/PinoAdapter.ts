@@ -40,18 +40,5 @@ export class PinoAdapter implements LogMesssagePort {
 }
 
 const map = function (loglevel: LoglevelOption): string {
-    switch (loglevel) {
-        case LoglevelOption.Debug:
-            return "debug";
-        case LoglevelOption.Error:
-            return "error";
-        case LoglevelOption.Fatal:
-            return "fatal";
-        case LoglevelOption.Info:
-            return "info";
-        case LoglevelOption.Trace:
-            return "trace";
-        case LoglevelOption.Warn:
-            return "warn";
-    }
+    return loglevel.toString().toLowerCase();
 }
