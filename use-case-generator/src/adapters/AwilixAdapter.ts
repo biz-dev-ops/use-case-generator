@@ -12,8 +12,8 @@ export default class ProductionContainer implements GetServicesPort {
 
     constructor() {
         this.container = createContainer<MyServices>({
-            injectionMode: InjectionMode.CLASSIC
-        })
+                injectionMode: InjectionMode.CLASSIC
+            })
             .register("createUseCaseCode", asDisposableClass(CreateUseCaseCodeImpl).singleton())
             .register("generateTypePort", asDisposableClass(QuickTypeAdapter).singleton())
             .register("getOptionsPort", asDisposableClass(ArgsAdapter).singleton())
@@ -26,10 +26,6 @@ export default class ProductionContainer implements GetServicesPort {
     getServices(): MyServices {
         return this.container.cradle;
     }
-
-    // resolveType<T = {}>(name: string): T {
-    //     return this.container.resolve<T>(name);
-    // }
 }
 
 function asDisposableClass<T = {}>(Type: Constructor<T>, opts?: BuildResolverOptions<T>): BuildResolver<T> & DisposableResolver<T> {
