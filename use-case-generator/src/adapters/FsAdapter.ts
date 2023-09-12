@@ -53,6 +53,7 @@ export class FsFile implements File {
 
     async readJson() : Promise<any> {
         let content = await this.readString();
+
         if(this.extension.endsWith(".yml") || this.extension.endsWith(".yaml")) {
             return load(content) || {};
         }

@@ -17,15 +17,15 @@ export class Options {
 }
 
 export enum LanguageOption {
-    "C#",
-    Java
+    "C#" = "C#",
+    Java = "Java"
 };
 
 export enum LoglevelOption {
-    Fatal, 
-    Error, 
-    Warn, 
-    Info, 
-    Debug, 
-    Trace
+    Fatal = "Fatal", 
+    Error = "Error", 
+    Warn = "Error", 
+    Info = "Info", 
+    Debug = "Debug", 
+    Trace = "Trace"
 };

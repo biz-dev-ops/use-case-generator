@@ -20,6 +20,7 @@
     "gu": "build/index.js"
   },
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^10.1.0",
     "awilix": "^8.0.1",
     "js-yaml": "^4.1.0",
     "pino": "^8.15.1",

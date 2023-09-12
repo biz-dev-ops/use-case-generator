@@ -2,7 +2,7 @@ import pino, { Logger } from "pino";
 import { LogMesssagePort } from "../ports/LogMessage";
 import { GetOptionsPort, LoglevelOption } from "../ports/GetOptions";
 
-export default class PinoAdapter implements LogMesssagePort {
+export class PinoAdapter implements LogMesssagePort {
     logger?: Logger;
 
     constructor(getOptionsPort: GetOptionsPort) {
