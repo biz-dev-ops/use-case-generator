@@ -116,3 +116,5 @@ tests/release/
 .DS_Store
 
 private/
+
+build/

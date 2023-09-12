@@ -2,12 +2,13 @@
   "name": "use-case-generator",
   "version": "0.0.1",
   "description": "The code generator parses a YAML file which contains a use-case description. Json-schema is used to specify the use-case parameters and response. The parsed use-case specification is used to generate the use-case interface as well as the parameter and response types.",
-  "main": "bin/index.js",
+  "main": "build/index.js",
   "files": [
     "bin/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "npx nodemon --language C# --source ./examples --destination ./.generated --ll Info",
+    "build": "rimraf ./build && tsc"
   },
   "author": "Arjan Geertsema",
   "license": "Apache 2.0",
@@ -16,7 +17,7 @@
     "url": "git+https://github.com/biz-dev-ops/use-case-generator"
   },
   "bin": {
-    "gu": "bin/index.js"
+    "gu": "build/index.js"
   },
   "dependencies": {
     "awilix": "^8.0.1",
@@ -24,5 +25,14 @@
     "pino-pretty": "^10.2.0",
     "quicktype-core": "^23.0.75",
     "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/json-schema": "^7.0.12",
+    "@types/node": "^20.6.0",
+    "@types/yargs": "^17.0.24",
+    "nodemon": "^3.0.1",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
