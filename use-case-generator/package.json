@@ -7,7 +7,7 @@
     "bin/"
   ],
   "scripts": {
-    "start:dev": "npx nodemon --language C# --source ./examples --destination ./.generated --ll Info",
+    "start:dev": "npx nodemon --language C# --source ./examples/simple-type-ref.use-case.yml --destination ./.generated --ll Info",
     "build": "rimraf ./build && tsc"
   },
   "author": "Arjan Geertsema",
@@ -23,6 +23,7 @@
     "@apidevtools/json-schema-ref-parser": "^10.1.0",
     "awilix": "^8.0.1",
     "js-yaml": "^4.1.0",
+    "json-schema-merge-allof": "^0.8.1",
     "pino": "^8.15.1",
     "pino-pretty": "^10.2.0",
     "quicktype-core": "^23.0.75",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
     "@types/json-schema": "^7.0.12",
+    "@types/json-schema-merge-allof": "^0.6.1",
     "@types/node": "^20.6.0",
     "@types/yargs": "^17.0.24",
     "nodemon": "^3.0.1",

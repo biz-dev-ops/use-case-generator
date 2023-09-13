@@ -1,6 +1,6 @@
 import { JSONSchema7 } from "json-schema";
-import { LanguageOption } from "./GetOptions";
+import { CodeLanguage } from "../domain/Enums";
 
 export interface GenerateTypePort {
-    generateType(language: LanguageOption, name: string, schema: string) : Promise<string>
+    generateType(language: CodeLanguage, namespace: string, name: string, schema: JSONSchema7) : Promise<string>
 }

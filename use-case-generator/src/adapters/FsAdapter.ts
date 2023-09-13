@@ -36,15 +36,20 @@ export class FsAdapter implements GetFileReferencePort, GetUseCaseFilesPort {
 }
 
 export class FsFile implements File {
-    path: string;
-    name: string;
-    extension: string;
+    readonly path: string;
+    readonly name: string;
+    readonly saveName: string;
+    readonly extension: string;
     
     constructor(path: string) {
        this.path = path;
        const parts = parse(path);
-       this.name = parts.name;
-       this.extension = parts.ext;
+       const index = parts.base.indexOf(".");
+       this.name = parts.base.substring(0, index);
+       this.saveName = this.name.replace(/[^a-z0-9]/gi, ' ').toLowerCase()
+       this.extension = parts.base.substring(index + 1);
+
+       console.log(this)
     }
 
     async readString() : Promise<string> {

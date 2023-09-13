@@ -1,4 +1,4 @@
-import { CreateUseCaseCode } from "../use-cases/CreateUseCaseCode";
+import { GenerateUseCaseCode } from "../use-cases/GenerateUseCaseCode";
 import { GetOptionsPort } from "./GetOptions";
 
 export interface GetServicesPort {
@@ -6,6 +6,6 @@ export interface GetServicesPort {
 }
 
 export interface MyServices {
-    createUseCaseCode : CreateUseCaseCode
+    generateUseCaseCode : GenerateUseCaseCode
     getOptionsPort: GetOptionsPort
 }

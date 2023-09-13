@@ -3,7 +3,7 @@ import { LogMesssagePort } from "../ports/LogMessage";
 import { GetOptionsPort, LoglevelOption } from "../ports/GetOptions";
 
 export class PinoAdapter implements LogMesssagePort {
-    logger?: Logger;
+    private logger?: Logger;
 
     constructor(getOptionsPort: GetOptionsPort) {
         const options = getOptionsPort.getOptions().then((options) => {

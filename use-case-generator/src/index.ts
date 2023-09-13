@@ -7,8 +7,8 @@ const main = async () : Promise<void> => {
     const services = getServicesPort().getServices();
 
     const options = await services.getOptionsPort.getOptions();
-    const createUseCode = services.createUseCaseCode;
-    createUseCode.handle(options.language, options.source, options.destination);
+    const generateUseCode = services.generateUseCaseCode;
+    generateUseCode.generateUseCaseCode(options.language, options.source, options.destination);
 }
 
 const getServicesPort = () : GetServicesPort => {

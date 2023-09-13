@@ -1,7 +1,8 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import { GetOptionsPort, LanguageOption, LoglevelOption, Options } from "../ports/GetOptions";
+import { GetOptionsPort, LoglevelOption, Options } from "../ports/GetOptions";
+import { CodeLanguage } from '../domain/Enums';
 
 export class ArgsAdapter implements GetOptionsPort {
     private options?: Options;
@@ -24,8 +25,8 @@ export class ArgsAdapter implements GetOptionsPort {
         );
     }
 
-    private mapLanguage(language: string) : LanguageOption {
-       return LanguageOption[language as keyof typeof LanguageOption];
+    private mapLanguage(language: string) : CodeLanguage {
+       return CodeLanguage[language as keyof typeof CodeLanguage];
     }
 
     private mapLogLevel(logLevel: string) : LoglevelOption {
@@ -34,10 +35,10 @@ export class ArgsAdapter implements GetOptionsPort {
 }
 
 interface Args {
-    language: string;
-    source: string;
-    destination: string
-    loglevel: string
+    readonly language: string;
+    readonly source: string;
+    readonly destination: string
+    readonly loglevel: string
 }
 
 const getArgs = async () : Promise<Args> => {
@@ -47,7 +48,7 @@ const getArgs = async () : Promise<Args> => {
             describe: "Define code language to generate.",
             type: "string",
             choices: Object
-                .keys(LanguageOption)
+                .keys(CodeLanguage)
                 .filter((v) => isNaN(Number(v))),
             demandOption: true
         })

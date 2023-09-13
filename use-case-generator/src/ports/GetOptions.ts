@@ -1,25 +1,22 @@
+import { CodeLanguage } from "../domain/Enums";
+
 export interface GetOptionsPort {
     getOptions() : Promise<Options>
 }
 
 export class Options {
-    language: LanguageOption;
-    source: string;
-    destination: string;
-    loglevel: LoglevelOption;
+    readonly language: CodeLanguage;
+    readonly source: string;
+    readonly destination: string;
+    readonly loglevel: LoglevelOption;
     
-    constructor(language: LanguageOption, source: string, destination: string, loglevel: LoglevelOption)  {
+    constructor(language: CodeLanguage, source: string, destination: string, loglevel: LoglevelOption)  {
         this.language = language;
         this.source = source;
         this.destination = destination;
         this.loglevel = loglevel ?? LoglevelOption.Warn;
     }
 }
-
-export enum LanguageOption {
-    "C#" = "C#",
-    Java = "Java"
-};
 
 export enum LoglevelOption {
     Fatal = "Fatal", 

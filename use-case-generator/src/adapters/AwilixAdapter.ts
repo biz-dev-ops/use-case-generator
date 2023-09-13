@@ -3,21 +3,24 @@ import { GetServicesPort, MyServices } from "../ports/GetServices";
 import { FsAdapter } from "./FsAdapter";
 import { PinoAdapter } from "./PinoAdapter";
 import { ArgsAdapter } from "./ArgsAdapter";
-import { CreateUseCaseCodeImpl } from "../domain/CreateUseCaseCodeImpl";
-import { GetUseCaseModelPortImpl } from "../ports/GetUseCaseModel";
+import { GenerateUseCaseCodeImpl } from "../domain/GenerateUseCaseCodeImpl";
 import { QuickTypeAdapter } from "./QuickTypeAdapter";
+import { CodeGenerator } from "./CodeGenerator";
+import { JsonSchemaAdapter } from "./JsonSchemaAdapter";
 
 export default class ProductionContainer implements GetServicesPort {
-    private container: AwilixContainer<MyServices>;
+    private readonly container: AwilixContainer<MyServices>;
 
     constructor() {
         this.container = createContainer<MyServices>({
                 injectionMode: InjectionMode.CLASSIC
             })
-            .register("createUseCaseCode", asDisposableClass(CreateUseCaseCodeImpl).singleton())
+            .register("generateUseCaseCode", asDisposableClass(GenerateUseCaseCodeImpl).singleton())
+            
+            .register("generateCodePort", asDisposableClass(CodeGenerator).singleton())
             .register("generateTypePort", asDisposableClass(QuickTypeAdapter).singleton())
             .register("getOptionsPort", asDisposableClass(ArgsAdapter).singleton())
-            .register("getUseCaseSchemaPort", asDisposableClass(GetUseCaseModelPortImpl).singleton())
+            .register("getUseCaseSchemaPort", asDisposableClass(JsonSchemaAdapter).singleton())
             .register("getUseCaseFilesPort", aliasTo("getFileReferencePort"))
             .register("getFileReferencePort", asDisposableClass(FsAdapter).singleton())
             .register("logMessagePort", asDisposableClass(PinoAdapter).singleton());
