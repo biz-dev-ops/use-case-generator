@@ -26,15 +26,23 @@ export class GenerateUseCaseCodeImpl implements GenerateUseCaseCode {
         const useCaseFiles = await this.getUseCaseFilesPort.getUseCaseFiles(source);
 
         const useCaseModels = await Promise.all(
-            useCaseFiles.map(async (useCaseFile) => await this.getUseCaseSchemaPort.getUseCaseModel(useCaseFile))
+            useCaseFiles.map(async (useCaseFile) => 
+                await this.getUseCaseSchemaPort.getUseCaseModel(useCaseFile)
+            )
         );
 
-        const genratedCodes = await this.generateCodePort.generateCode(language, useCaseModels.map((useCaseModel) => map(useCaseModel)));
+        const genratedCodes = await this.generateCodePort.generateCode(
+            language, 
+            useCaseModels.map((useCaseModel) => 
+                new InterfaceSchema(
+                    useCaseModel.name, 
+                    useCaseModel.description, 
+                    useCaseModel.parameters, 
+                    useCaseModel.response
+                )
+            )
+        );
 
         //Todo save code to disk.
     }
-}
-
-const map = (schema: UseCaseModel) : InterfaceSchema => {
-    return new InterfaceSchema(schema.name, schema.description, schema.parameters, schema.response);
 }
