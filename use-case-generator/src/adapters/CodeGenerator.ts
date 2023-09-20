@@ -1,76 +1,232 @@
-import { JSONSchema7 } from "json-schema";
 import { CodeLanguage } from "../domain/Enums";
-import { Code, GenerateCodePort, InterfaceSchema } from "../ports/GenerateCode";
+import { GenerateTypeCodePort, TypeCode, InterfaceSchema, NamedOpenApiDataType, OpenApiDataType } from "../ports/GenerateTypeCode";
 import { GenerateTypePort } from "../ports/GenerateType";
+import { scheduler } from "timers/promises";
 
 //TODO: find opensource generator which can generator interfaces in any language.
-export class CodeGenerator implements GenerateCodePort {
+export class CodeGenerator implements GenerateTypeCodePort {
     private readonly generateTypePort: GenerateTypePort;
 
     constructor(generateTypePort: GenerateTypePort) {
         this.generateTypePort = generateTypePort;
     }
 
-    generateCode(language: CodeLanguage, schemas: [InterfaceSchema]): Promise<Code[]> {
-        return Promise.all(
-            schemas.map(async (schema) => await this.createInterface(language, schema))
-        );
-    }
-
-    private async createInterface(language: CodeLanguage, schema: InterfaceSchema) : Promise<Code> {
-        const namespace: string = "todo";
-        
-        const parameters = await this.createParameters(language, "todo", schema.parameters)
-        const response = await this.createResponse(language, namespace, `${schema.name} response`, schema.response);
-
-        //todo: create interface.
-
-        return new Code();
-    }
-    private async createParameters(language: CodeLanguage, namespace: string, parameters?: { [key: string]: JSONSchema7; }) : Promise<GeneratedType[]> {
-        if(!parameters)
-            return [];
-        
+    async generateTypeCode(language: CodeLanguage, schemas: [InterfaceSchema]): Promise<TypeCode[]> {
         return await Promise.all(
-            Object.entries(parameters)
-                .map(entry => ({ key: entry[0], value: entry[1]}))
-                .map(async (entry) => {
-                    const name = entry.key;
-                    const type = entry.value.type?.toString() || "object";
-                    
-                    if(type !== "object")
-                        return new GeneratedType(name, type);
+            schemas
+                .map(async (schema) => await this.generateInterface(language, schema))
+        )
+        .then(generatedInterfaces => 
+            generatedInterfaces.flatMap(generatedInterface => { 
+                const code: TypeCode[] = [new TypeCode(
+                    generatedInterface.namespace,
+                    generatedInterface.name,
+                    generatedInterface.code
+                )];
 
-                    const code = await this.generateTypePort.generateType(language, namespace, entry.key, entry.value);
-
-                    return new GeneratedType(name, type, code);
-                })
+                if(generatedInterface.parameters) {
+                    code.push(
+                        ...generatedInterface.parameters
+                            ?.filter(p => p.definition instanceof GeneratedCustomType)
+                            .map(p => p.definition as GeneratedCustomType)
+                            .map(t => mapGeneratedCustomTypeToTypeCode(t))
+                    );
+                }
+                
+                if(generatedInterface.response && generatedInterface.response instanceof GeneratedCustomType) {
+                    code.push(mapGeneratedCustomTypeToTypeCode(generatedInterface.response))
+                }
+                
+                return code;
+            })
         );
     }
 
-    private async createResponse(language: CodeLanguage, namespace: string, name: string, schema?: JSONSchema7) : Promise<GeneratedType | undefined> {
-        if(!schema)
-            return;
+    private async generateInterface(language: CodeLanguage, schema: InterfaceSchema) : Promise<GeneratedInterface> {
+        const definition = new InterfaceDefinition(
+            schema.namespace,
+            schema.name,
+            schema.description,
+            mapOpenApiDataTypesParemeterTypeDefinitions(schema.parameters),
+            mapOpenApiDataTypeToResponseTypeDefinition(schema.response)
+        );
 
-        const type = schema.type?.toString() || "object";
-        
-        if(type !== "object")
-            return new GeneratedType(name, type);
+        throw new Error("Not implemented exception");
+        //Todo: generate interface code => generate types and generate interfaces
+        const code = "";
 
-        const code = await this.generateTypePort.generateType(language, namespace, name, schema);
-
-        return new GeneratedType(name, type, code);
+        return new GeneratedInterface(
+            definition.namespace, 
+            definition.name,
+            code,
+            definition.description,
+            definition.parameters,
+            definition.response
+        );
     }
 }
 
-class GeneratedType {
-    readonly name: string;
-    readonly type: string;
-    readonly code?: string;
+const mapOpenApiDataTypeToTypeDefinition = (schema: OpenApiDataType) : TypeDefinition => {
+    if(!schema.title)
+        throw new Error("JSONSchema error: title is not defined.");
 
-    constructor(name: string, type: string, code?: string) {
+    const nullable =  (schema as { nullable?: boolean}).nullable ?? false;
+
+    if(schema.type == "object" || schema.properties) {
+        return new CustomType("", schema.title, nullable);
+    }
+    
+    const type = mapJsonSchemaTypeToType(schema);
+
+    if(!schema.values) {
+        return new PrimitiveType(type, nullable);
+    }
+    else {
+        return new EnumType(type, nullable, schema.values)
+    }
+}
+
+const mapJsonSchemaTypeToType = (schema: OpenApiDataType) : Type => {
+    switch(schema.type) {
+        case "string":
+            switch(schema.format) {
+                case "date":
+                    return Type.Date;
+                case "date-time":
+                    return Type.DateTime;
+                case "uuid":
+                    return Type.UUID;
+                default:
+                    return Type.String;
+            }
+        case "number":
+            switch(schema.format) {
+                case "float":
+                    return Type.Integer;
+                case "double":
+                    default:
+                    return Type.Long;
+            }
+        case "integer":
+            switch(schema.format) {
+                case "int32":
+                    return Type.Integer;
+                case "int64":
+                    default:
+                    return Type.Long;
+            }
+        case "boolean":
+            return Type.Boolean;
+        case "array":
+            throw new Error("Not implemented");
+        default:
+            throw new Error(`JSONSchema error: type "${schema.type}" is not supported.`);
+    }
+}
+
+const mapOpenApiDataTypeToResponseTypeDefinition = (schema?: OpenApiDataType) : ResponseTypeDefinition => {
+    if(!schema)
+        return new Void();
+
+   return mapOpenApiDataTypeToTypeDefinition(schema);
+}
+
+const mapOpenApiDataTypesParemeterTypeDefinitions = (dataTypes?: NamedOpenApiDataType[]) :  ParameterTypeDefinition[] => {
+    if(!dataTypes)
+        return [];
+
+    return dataTypes.map(t => {
+        t.title = t.title ?? t.name;
+
+        return {
+            name: t.name,
+            definition: mapOpenApiDataTypeToTypeDefinition(t)
+        };
+    });
+}
+
+const mapGeneratedCustomTypeToTypeCode = (type: GeneratedCustomType) : TypeCode => {
+    return new TypeCode(type.namespace, type.name, type.code);
+}
+
+class InterfaceDefinition {
+    readonly namespace: string;
+    readonly name: string;
+    readonly description?: string;
+    readonly parameters?: ParameterTypeDefinition[];
+    readonly response?: ResponseTypeDefinition;
+
+    constructor(namespace: string, name: string, description?: string, parameters?: ParameterTypeDefinition[], response?: ResponseTypeDefinition) {
+        this.namespace = namespace;
         this.name = name;
-        this.type = type;
+        this.description = description;
+        this.parameters = parameters;
+        this.response = response;
+    }
+}
+
+class GeneratedInterface extends InterfaceDefinition {
+    readonly code: string
+    
+    constructor(namespace: string, name: string, code: string, description?: string, parameters?: ParameterTypeDefinition[], response?: ResponseTypeDefinition) {
+        super(namespace, name, description, parameters, response);
         this.code = code;
     }
+}
+
+type ParameterTypeDefinition  = { name: string, definition: TypeDefinition };
+type ResponseTypeDefinition = Void | TypeDefinition;
+type TypeDefinition = PrimitiveType | EnumType | CustomType | GeneratedCustomType;
+
+class Void {};
+
+class PrimitiveType {
+    readonly type: Type | string;
+    readonly nullable: boolean;
+
+    constructor(type: Type | string, nullable: boolean) {
+        this.type = type;
+        this.nullable = nullable;
+    }
+}
+
+class EnumType extends PrimitiveType {
+    readonly values: string[];
+
+    constructor(type: string, nullable: boolean, values: string[]) {
+        super(type, nullable);
+        this.values = values;
+    }
+}
+
+class CustomType extends PrimitiveType {
+    readonly namespace: string;
+
+    constructor(namespace: string, type: string, nullable: boolean) {
+        super(type, nullable);
+        this.namespace = namespace;
+    }
+}
+
+class GeneratedCustomType extends CustomType {
+    readonly name: string;
+    readonly code: string;
+
+    constructor(namespace: string, name: string, nullable: boolean, code: string) {
+        super(namespace, "object", nullable);
+        this.name = name;
+        this.code = code;
+    }
+}
+
+enum Type {
+    String = "string",
+    Date = "date",
+    DateTime = "date-time",
+    UUID = "uuid",
+    Float = "float",
+    Double = "double",
+    Integer = "integer",
+    Long = "long",
+    Boolean = "boolean"
 }

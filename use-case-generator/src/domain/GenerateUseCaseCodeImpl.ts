@@ -2,18 +2,18 @@ import { GetUseCaseFilesPort } from "../ports/GetUseCaseFiles";
 import { GetUseCaseModelPort, UseCaseModel } from "../ports/GetUseCaseModel";
 import { GenerateUseCaseCode as GenerateUseCaseCode } from "../use-cases/GenerateUseCaseCode";
 import { LogMesssagePort } from "../ports/LogMessage";
-import { GenerateCodePort, InterfaceSchema } from "../ports/GenerateCode";
+import { GenerateTypeCodePort, InterfaceSchema } from "../ports/GenerateTypeCode";
 import { CodeLanguage } from "./Enums";
 
 export class GenerateUseCaseCodeImpl implements GenerateUseCaseCode {
     private readonly getUseCaseSchemaPort: GetUseCaseModelPort;
     private readonly getUseCaseFilesPort: GetUseCaseFilesPort;
-    private readonly generateCodePort: GenerateCodePort;
+    private readonly generateCodePort: GenerateTypeCodePort;
     private readonly logger: LogMesssagePort;
 
     constructor(getUseCaseFilesPort: GetUseCaseFilesPort, 
         getUseCaseSchemaPort: GetUseCaseModelPort, 
-        generateCodePort: GenerateCodePort,
+        generateCodePort: GenerateTypeCodePort,
         logMessagePort: LogMesssagePort
     ) {
         this.getUseCaseFilesPort = getUseCaseFilesPort;
@@ -31,12 +31,13 @@ export class GenerateUseCaseCodeImpl implements GenerateUseCaseCode {
             )
         );
 
-        const genratedCodes = await this.generateCodePort.generateCode(
+        const generatedUseCases = await this.generateCodePort.generateTypeCode(
             language, 
             useCaseModels.map((useCaseModel) => 
                 new InterfaceSchema(
+                    "todo namespace",
                     useCaseModel.name, 
-                    useCaseModel.description, 
+                    useCaseModel.description,
                     useCaseModel.parameters, 
                     useCaseModel.response
                 )

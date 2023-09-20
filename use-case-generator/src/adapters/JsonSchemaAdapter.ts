@@ -2,7 +2,6 @@ import { bundle } from "@apidevtools/json-schema-ref-parser";
 import mergeAllOf from "json-schema-merge-allof"
 import { dirname  } from "path";
 
-import { GenerateUseCaseCode } from "../use-cases/GenerateUseCaseCode";
 import { GetFileReferencePort } from "../ports/GetFileReference";
 import { GetUseCaseModelPort, UseCaseModel } from "../ports/GetUseCaseModel";
 
@@ -31,7 +30,13 @@ const deReferenceSchema = async (path: string, json: any) : Promise<void> => {
 
     try {
         if(json.parameters) {
-            json.parameters = await bundle(json.parameters);
+            json.parameters = await bundle(json.parameters, {
+                dereference: {
+                    onDereference: (path: string, schema: any) => {
+                        schema["x-ref-path"] = path;
+                    }
+                }
+            });
         }
 
         if(json.response) {
