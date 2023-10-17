@@ -6,18 +6,17 @@ info:
 paths:
 
   /animals:
-    parameters:
-      - in: query
-        name: filter
-        required: true
-        schema:
-          $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/filter"
     get:
       tags:
         - animals
       summary: Retrieves animals.
       operationId: GetAnimals
       parameters:
+        - in: query
+          name: filter
+          required: true
+          schema:
+            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/filter"
         - in: query
           name: limit
           required: true

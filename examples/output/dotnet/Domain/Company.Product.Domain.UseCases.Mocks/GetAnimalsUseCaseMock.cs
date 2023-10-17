@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Company.Product.Domain.UseCases.Mocked
+namespace Company.Product.Domain.UseCases.Mocks
 {
     public class GetAnimalsUseCaseMock : GetAnimalsUseCase
     {

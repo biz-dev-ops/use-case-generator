@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Company.Product.Domain.UseCases.Mocked.Configuration
+namespace Company.Product.Domain.UseCases.Mocks.Configuration
 {
     public static class IServiceCollectionExtensions
     {
-        public static IServiceCollection AddMockedUseCases(this IServiceCollection services)
+        public static IServiceCollection AddDomainUseCasesMocks(this IServiceCollection services)
         {
             return services
                 .AddSingleton<GetAnimalsUseCase, GetAnimalsUseCaseMock>();

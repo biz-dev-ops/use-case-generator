@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddRestAdapterServices()
-    .AddMockedUseCases();
+    .AddDomainUseCasesMocks();
 
 var app = builder.Build();
 

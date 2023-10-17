@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{04
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Adapters.Rest", "Adapters\Company.Product.Adapters.Rest\Company.Product.Adapters.Rest.csproj", "{5521014A-4C68-40C0-9DE8-7AA50871F052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.UseCases.Mocked", "Domain\Company.Product.Domain.UseCases.Mocked\Company.Product.Domain.UseCases.Mocked.csproj", "{00C6ADE4-191F-437B-BE2C-02612B63B893}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.UseCases.Mocks", "Domain\Company.Product.Domain.UseCases.Mocks\Company.Product.Domain.UseCases.Mocks.csproj", "{00C6ADE4-191F-437B-BE2C-02612B63B893}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{D29CA249-4BFD-43D5-A690-BF13E68CADFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Applications.Mocked", "Applications\Company.Product.Applications.Mocked\Company.Product.Applications.Mocked.csproj", "{31433234-5793-4DA3-88E8-995AD5304EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Applications.Mocks", "Applications\Company.Product.Applications.Mocks\Company.Product.Applications.Mocks.csproj", "{31433234-5793-4DA3-88E8-995AD5304EF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Adapters.Rest.Generated", "Adapters\Company.Product.Adapters.Rest.Generated\Company.Product.Adapters.Rest.Generated.csproj", "{055AA5BB-8FA4-4673-8AE1-424CF0376E61}"
 EndProject
