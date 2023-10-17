@@ -1,6 +1,8 @@
 animal:
+  required:
+    - object_type
   properties:
-    sound:
+    object_type:
       type: string
   oneOf:
     - $ref: "#/dog"
@@ -13,9 +15,14 @@ animal:
       "COW": "#/cow"
       "DOG": "#/dog"
 
+abstract_animal:
+  properties:
+    sound:
+      type: string
+
 dog:
   allOf:
-    - $ref: "#/animal"
+    - $ref: "#/abstract_animal"
     - title: dog
       properties:
         a:
@@ -23,7 +30,7 @@ dog:
 
 cat:
   allOf:
-    - $ref: "#/animal"
+    - $ref: "#/abstract_animal"
     - title: cat
       properties:
         b:
@@ -31,7 +38,7 @@ cat:
 
 cow:
   allOf:
-    - $ref: "#/animal"
+    - $ref: "#/abstract_animal"
     - title: cow
       properties:
         c:

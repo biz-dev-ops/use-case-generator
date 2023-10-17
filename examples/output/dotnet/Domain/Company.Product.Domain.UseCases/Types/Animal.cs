@@ -6,8 +6,6 @@ namespace Company.Product.Domain.UseCases.Types
     [JsonDerivedType(typeof(Cat), typeDiscriminator: "CAT")]
     [JsonDerivedType(typeof(Cow), typeDiscriminator: "COW")]
     [JsonDerivedType(typeof(Dog), typeDiscriminator: "DOG")]
-    public class Animal
-    {
-        public string Sound { get; set; }
-    }
+    public interface Animal
+    { }
 }
