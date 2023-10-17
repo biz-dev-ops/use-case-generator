@@ -5,13 +5,13 @@ info:
   title: Animals API
 paths:
 
-  /animals/{filter}:
+  /animals:
     parameters:
-      - in: path
+      - in: query
         name: filter
         required: true
         schema:
-          $ref: "./get-animals.use-case.yml#/parameters/filter"
+          $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/filter"
     get:
       tags:
         - animals
@@ -20,18 +20,30 @@ paths:
       parameters:
         - in: query
           name: limit
-          required: false
+          required: true
           schema:
-            $ref: "./get-animals.use-case.yml#/parameters/limit"
+            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/limit"
         - in: query
           name: offset
-          required: false
+          required: true
           schema:
-            $ref: "./get-animals.use-case.yml#/parameters/offset"
+            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/offset"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "./get-animals.use-case.yml#/response"
+                $ref: "#/components/schemas/get_animals_response"
+
+components:
+
+  schemas:
+
+    get_animals_response:
+      allOf:
+        - $ref: "../data-dictionary/base/offset-response.yml"
+        - title: get animals response
+          properties:
+            animals:
+              $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/response"

@@ -136,6 +136,7 @@ const mapOpenApiDataTypesParemeterTypeDefinitions = (dataTypes?: NamedOpenApiDat
         return [];
 
     return dataTypes.map(t => {
+        //Todo: transform x-ref-path to title
         t.title = t.title ?? t.name;
 
         return {

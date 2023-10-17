@@ -1,4 +1,4 @@
-type: object
+title: base type
 required:
   - object_type
 properties:

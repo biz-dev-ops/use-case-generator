@@ -1,0 +1,9 @@
+parameters:
+  filter:
+    $ref: "../types/string-type.yml"
+  limit:
+    $ref: "../base/limit.yml"
+  offset:
+    $ref: "../base/offset.yml"
+response:
+  $ref: "../types/animals.yml"

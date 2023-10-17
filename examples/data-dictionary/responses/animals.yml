@@ -1,7 +1,0 @@
-allOf:
-  - $ref: "../base/offset-response.yml"
-  - properties:
-      items:
-        type: array
-        items:
-          $ref: "../models/animals.yml#/animals"

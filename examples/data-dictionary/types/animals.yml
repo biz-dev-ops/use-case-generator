@@ -1,0 +1,4 @@
+title: animals
+type: array
+items:
+  $ref: "animal.yml#/animal"

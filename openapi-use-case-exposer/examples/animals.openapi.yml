@@ -34,4 +34,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./get-animals.use-case.yml#/response"
+                $ref: "#/components/schemas/get_animals_response"
+              
+components:
+  
+  schemas:
+
+    get_animals_response:
+      $ref: "./get-animals.use-case.yml#/response"
