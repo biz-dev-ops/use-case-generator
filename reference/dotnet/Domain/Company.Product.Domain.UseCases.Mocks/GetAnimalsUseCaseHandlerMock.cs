@@ -1,16 +1,19 @@
-﻿using Company.Product.Domain.UseCases.Types;
+﻿using Company.Product.Domain.UseCases.Bus;
+using Company.Product.Domain.UseCases.Queries;
+using Company.Product.Domain.UseCases.Types;
 
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Company.Product.Domain.UseCases.Mocks
 {
-    public class GetAnimalsUseCaseMock : GetAnimalsUseCase
+    public class GetAnimalsUseCaseHandlerMock : IQueryHandler<GetAnimals, IEnumerable<Animal>>
     {
-        public Task<IEnumerable<Animal>> GetAnimals(string filter, int limit, int offset)
+        public Task<IEnumerable<Animal>> Handle(GetAnimals query, CancellationToken cancellationToken)
         {
             var animals = new List<Animal>();
-            switch(filter)
+            switch(query.Filter)
             {
                 case "dog":
                     animals.Add(new Dog() {
