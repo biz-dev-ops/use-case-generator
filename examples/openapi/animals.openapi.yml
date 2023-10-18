@@ -5,33 +5,64 @@ info:
   title: Animals API
 paths:
 
-  /animals/{filter}:
-    parameters:
-      - in: path
-        name: filter
-        required: true
-        schema:
-          $ref: "./get-animals.use-case.yml#/parameters/filter"
+  /animals:
     get:
       tags:
         - animals
       summary: Retrieves animals.
       operationId: GetAnimals
       parameters:
-        - in: query
-          name: limit
-          required: false
-          schema:
-            $ref: "./get-animals.use-case.yml#/parameters/limit"
-        - in: query
-          name: offset
-          required: false
-          schema:
-            $ref: "./get-animals.use-case.yml#/parameters/offset"
+        - $ref: "#/components/parameters/filter"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "./get-animals.use-case.yml#/response"
+                $ref: "#/components/schemas/get_animals_response"
+
+components:
+
+  parameters:
+    
+    filter:
+      in: query
+      name: filter
+      required: true
+      schema:
+        $ref: "#/components/schemas/filter"
+
+    limit:
+      in: query
+      name: limit
+      required: true
+      schema:
+        $ref: "#/components/schemas/limit"
+
+    offset:
+      in: query
+      name: offset
+      required: true
+      schema:
+        $ref: "#/components/schemas/offset"
+
+  schemas:
+
+    filter:
+      $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/filter"
+
+    limit:
+      $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/limit"
+
+    offset:
+      $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/offset"
+
+    get_animals_response:
+      allOf:
+        - $ref: "../data-dictionary/base/offset-response.yml"
+        - title: get animals response
+          properties:
+            animals:
+              $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/response"

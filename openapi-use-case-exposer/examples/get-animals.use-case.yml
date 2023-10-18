@@ -1,9 +1,0 @@
-parameters:
-  filter:
-    type: string
-  limit:
-    $ref: "./data-dictionary/base/limit.yml"
-  offset:
-    $ref: "./data-dictionary/base/offset.yml"
-response:
-  $ref: "./data-dictionary/responses/animals.yml"

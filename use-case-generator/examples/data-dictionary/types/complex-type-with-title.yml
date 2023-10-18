@@ -1,4 +1,0 @@
-allOf:
-  - $ref: "./complex-type.yml"
-  - title: a custom title for complex type
-  
