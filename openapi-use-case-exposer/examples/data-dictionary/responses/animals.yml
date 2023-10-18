@@ -1,7 +1,0 @@
-allOf:
-  - $ref: "../base/offset-response.yml"
-  - properties:
-      items:
-        type: array
-        items:
-          $ref: "../../../../use-case-generator/examples/data-dictionary/types/animals.yml#/animals"

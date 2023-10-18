@@ -1,5 +1,0 @@
-parameters:
-  param:
-    $ref: "./data-dictionary/types/complex-type-with-title.yml"
-response:
-    $ref: "./data-dictionary/types/complex-type-with-title.yml"

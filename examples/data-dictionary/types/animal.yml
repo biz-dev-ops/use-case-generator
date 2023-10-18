@@ -1,0 +1,45 @@
+animal:
+  required:
+    - object_type
+  properties:
+    object_type:
+      type: string
+  oneOf:
+    - $ref: "#/dog"
+    - $ref: "#/cat"
+    - $ref: "#/cow"
+  discriminator:
+    propertyName: object_type
+    mapping:
+      "CAT": "#/cat"
+      "COW": "#/cow"
+      "DOG": "#/dog"
+
+abstract_animal:
+  properties:
+    sound:
+      type: string
+
+dog:
+  allOf:
+    - $ref: "#/abstract_animal"
+    - title: dog
+      properties:
+        a:
+          type: string
+
+cat:
+  allOf:
+    - $ref: "#/abstract_animal"
+    - title: cat
+      properties:
+        b:
+          type: string
+
+cow:
+  allOf:
+    - $ref: "#/abstract_animal"
+    - title: cow
+      properties:
+        c:
+          type: string

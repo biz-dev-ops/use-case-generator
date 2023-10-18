@@ -1,7 +1,0 @@
-type: object
-required:
-  - object_type
-properties:
-  object_type: 
-    type: string
-  

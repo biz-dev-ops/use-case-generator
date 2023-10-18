@@ -1,3 +1,4 @@
+title: response
 properties:
   messages:
     $ref: "messages.yml"
