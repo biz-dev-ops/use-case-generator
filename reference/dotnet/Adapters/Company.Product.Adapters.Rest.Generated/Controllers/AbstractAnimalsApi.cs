@@ -1,17 +1,15 @@
-using Company.Product.Adapters.Rest.Attributes;
 using Company.Product.Adapters.Rest.Models;
+using Company.Product.Domain.UseCases.Bus;
+using Company.Product.Domain.UseCases.Queries;
 
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using System.Threading;
-using Company.Product.Domain.UseCases.Bus;
-using Company.Product.Domain.UseCases.Queries;
 
 namespace Company.Product.Adapters.Rest.Controllers
 {
-    [ApiController]
     public abstract class AbstractAnimalsApi : ControllerBase
     {
         private readonly IBus bus;
@@ -23,7 +21,6 @@ namespace Company.Product.Adapters.Rest.Controllers
 
         [HttpGet]
         [Route("/animals")]
-        [ValidateModelState]
         public async virtual Task<ActionResult<GetAnimalsResponse>> GetAnimals([FromQuery][Required]string filter, [FromQuery]int limit, [FromQuery]int offset, CancellationToken cancellationToken) 
         {
             var animals = await bus.Handle

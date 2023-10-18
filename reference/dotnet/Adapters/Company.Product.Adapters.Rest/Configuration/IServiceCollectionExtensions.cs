@@ -5,13 +5,7 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddAdaptersRest(this IServiceCollection services)
     {
         services
-            .AddControllers(config =>
-            {
-                config.Filters.Add<ValidateModelStateAttribute>();
-            })
-            .AddJsonOptions(options => {
-                
-            });
+            .AddAdaptersRestGenerated();
 
         return services
             .AddSwaggerGen(c =>
