@@ -1,12 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddRestAdapterServices()
+    .AddAdaptersRest()
     .AddDomainUseCasesMocks();
 
 var app = builder.Build();
 
 app
-    .ConfigureRestAdapter(builder.Configuration, app.Environment);
+    .ConfigureAdaptersRest(builder.Configuration, app.Environment);
 
 app.Run();

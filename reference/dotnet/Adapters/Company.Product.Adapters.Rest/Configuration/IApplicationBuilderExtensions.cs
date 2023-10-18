@@ -3,7 +3,7 @@ namespace Company.Product.Adapters.Rest.Configuration;
 
 public static class IApplicationBuilderExtensions
 {
-    public static IApplicationBuilder ConfigureRestAdapter(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment env)
+    public static IApplicationBuilder ConfigureAdaptersRest(this IApplicationBuilder app, IConfiguration configuration, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {

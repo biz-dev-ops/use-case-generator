@@ -2,12 +2,12 @@ namespace Company.Product.Adapters.Rest.Configuration;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddRestAdapterServices(this IServiceCollection services)
+    public static IServiceCollection AddAdaptersRest(this IServiceCollection services)
     {
         services
             .AddControllers(config =>
             {
-                
+                config.Filters.Add<ValidateModelStateAttribute>();
             })
             .AddJsonOptions(options => {
                 

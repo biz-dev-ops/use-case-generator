@@ -1,5 +1,3 @@
-using Company.Product.Domain.UseCases.Bus;
-
 namespace Company.Product.Adapters.Rest.Controllers;
 
 public class AnimalsApi : AbstractAnimalsApi
