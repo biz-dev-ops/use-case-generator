@@ -21,7 +21,11 @@ namespace Company.Product.Adapters.Rest.Controllers
 
         [HttpGet]
         [Route("/animals")]
-        public async virtual Task<ActionResult<GetAnimalsResponse>> GetAnimals([FromQuery][Required]string filter, [FromQuery]int limit, [FromQuery]int offset, CancellationToken cancellationToken) 
+        public async virtual Task<ActionResult<GetAnimalsResponse>> GetAnimals(
+            [FromQuery][Required]string filter, 
+            [FromQuery]int limit, 
+            [FromQuery]int offset,
+             CancellationToken cancellationToken) 
         {
             var animals = await bus.Handle
             (

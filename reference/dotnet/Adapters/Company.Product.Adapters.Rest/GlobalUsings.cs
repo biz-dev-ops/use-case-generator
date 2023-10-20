@@ -1,4 +1,3 @@
-global using Company.Product.Adapters.Rest.Attributes;
 global using Company.Product.Adapters.Rest.Models;
 global using Company.Product.Domain.UseCases.Bus;
 

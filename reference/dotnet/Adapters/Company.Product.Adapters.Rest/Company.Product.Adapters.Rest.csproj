@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Company.Product.Adapters.Rest.Generated\Company.Product.Adapters.Rest.Generated.csproj" />
   </ItemGroup>
 

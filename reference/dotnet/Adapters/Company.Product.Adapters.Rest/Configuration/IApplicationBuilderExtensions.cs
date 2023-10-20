@@ -10,7 +10,7 @@ public static class IApplicationBuilderExtensions
             app
                 .UseDeveloperExceptionPage()
                 .UseSwagger()
-                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "application v1"));
+                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product v1"));
         }
 
         return app

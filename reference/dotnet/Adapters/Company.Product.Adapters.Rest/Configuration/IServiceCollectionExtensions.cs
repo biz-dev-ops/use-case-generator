@@ -1,3 +1,5 @@
+using Company.Product.Domain.UseCases.Types;
+
 namespace Company.Product.Adapters.Rest.Configuration;
 
 public static class IServiceCollectionExtensions
@@ -10,7 +12,14 @@ public static class IServiceCollectionExtensions
         return services
             .AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "application", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Product", Version = "v1" });
+
+                c.UseAllOfForInheritance();
+                c.UseOneOfForPolymorphism();
+
+                c.SelectSubTypesUsing(baseType =>
+                    baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType) || baseType.IsAssignableFrom(type))
+                );
             });
     }
 }
