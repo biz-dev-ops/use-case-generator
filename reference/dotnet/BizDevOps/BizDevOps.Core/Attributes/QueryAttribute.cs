@@ -1,6 +1,6 @@
 using System;
 
-namespace Company.Product.Domain.UseCases
+namespace BizDevOps.Core.Attributes
 {
     public class QueryAttribute : Attribute
     {
