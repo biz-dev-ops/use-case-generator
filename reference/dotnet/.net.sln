@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Adapters.Rest.Generated", "Adapters\Company.Product.Adapters.Rest.Generated\Company.Product.Adapters.Rest.Generated.csproj", "{055AA5BB-8FA4-4673-8AE1-424CF0376E61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.Core", "Domain\Company.Product.Domain.Core\Company.Product.Domain.Core.csproj", "{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0C18CD3B-97D9-4EB5-B77C-B37BFD12E606} = {D9189B11-0A93-4384-839F-E7D7359C6478}
@@ -55,5 +61,6 @@ Global
 		{00C6ADE4-191F-437B-BE2C-02612B63B893} = {D9189B11-0A93-4384-839F-E7D7359C6478}
 		{31433234-5793-4DA3-88E8-995AD5304EF5} = {D29CA249-4BFD-43D5-A690-BF13E68CADFF}
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61} = {0429A8B8-DFB9-42E7-B889-AE3009D8ED43}
+		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6} = {D9189B11-0A93-4384-839F-E7D7359C6478}
 	EndGlobalSection
 EndGlobal
