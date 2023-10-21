@@ -4,7 +4,7 @@ namespace Company.Product.Adapters.Rest.Controllers;
 
 public class AnimalsApi : AbstractAnimalsApi
 {
-    public AnimalsApi(IGetAnimalsUseCase getAnimalsUseCase) 
+    public AnimalsApi(IGetAnimalsUseCase getAnimalsUseCase)
         : base(getAnimalsUseCase)
     { }
 
@@ -14,7 +14,10 @@ public class AnimalsApi : AbstractAnimalsApi
 
         response.Value.Links = new OffsetResponseLinks()
         {
-            Next = Url.Action(nameof(GetAnimals), new { filter, limit, offset = offset + limit }),
+            Next = Url.Action(
+                action: nameof(GetAnimals),
+                values: new { filter, limit, offset = offset + limit }
+            ),
         };
 
         return response;

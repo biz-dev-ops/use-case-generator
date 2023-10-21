@@ -12,10 +12,11 @@ namespace Company.Product.Adapters.Rest.Resolvers
         public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)
         {
             var jsonTypeInfo = base.GetTypeInfo(type, options);
-            if(jsonTypeInfo.PolymorphismOptions != null)
+            if (jsonTypeInfo.PolymorphismOptions != null)
                 return jsonTypeInfo;
 
-            if(type == typeof(Animal)) {
+            if (type == typeof(Animal))
+            {
                 jsonTypeInfo.PolymorphismOptions = new JsonPolymorphismOptions
                 {
                     TypeDiscriminatorPropertyName = "object_type",
