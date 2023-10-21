@@ -1,5 +1,4 @@
 global using Company.Product.Adapters.Rest.Models;
-global using Company.Product.Domain.UseCases.Bus;
 
 global using System.ComponentModel.DataAnnotations;
 global using Microsoft.AspNetCore.Mvc;

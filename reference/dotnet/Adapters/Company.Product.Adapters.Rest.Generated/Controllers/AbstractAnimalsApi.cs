@@ -1,6 +1,5 @@
+using Company.Product.Domain.UseCases;
 using Company.Product.Adapters.Rest.Models;
-using Company.Product.Domain.UseCases.Bus;
-using Company.Product.Domain.UseCases.Queries;
 
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +11,11 @@ namespace Company.Product.Adapters.Rest.Controllers
 {
     public abstract class AbstractAnimalsApi : ControllerBase
     {
-        private readonly IBus bus;
+        private readonly IGetAnimalsUseCase getAnimalsUseCase;
 
-        public AbstractAnimalsApi(IBus bus)
+        public AbstractAnimalsApi(IGetAnimalsUseCase getAnimalsUseCase)
         {
-            this.bus = bus ?? throw new NullReferenceException(nameof(bus));
+            this.getAnimalsUseCase = getAnimalsUseCase ?? throw new ArgumentNullException(nameof(getAnimalsUseCase));
         }
 
         [HttpGet]
@@ -27,11 +26,7 @@ namespace Company.Product.Adapters.Rest.Controllers
             [FromQuery]int offset,
              CancellationToken cancellationToken) 
         {
-            var animals = await bus.Handle
-            (
-                new GetAnimals() { Filter = filter, Limit = limit, Offset = offset }, 
-                cancellationToken
-            );
+            var animals = await getAnimalsUseCase.GetAnimals(filter: filter, limit: limit, offset: offset, cancellationToken: cancellationToken);
 
             return new GetAnimalsResponse()
             {
