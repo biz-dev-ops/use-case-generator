@@ -1,0 +1,3 @@
+parameters:
+  animal:
+    $ref: "../types/animal.yml#/animal"

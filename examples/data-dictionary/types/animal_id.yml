@@ -1,0 +1,4 @@
+title: animal id
+type: string
+format: uuid
+description: An unique id identifing an animal.

@@ -15,6 +15,7 @@ namespace Company.Product.Adapters.Rest.Controllers
         private readonly ICreateAnimalUseCase createAnimalUseCase;
         private readonly IGetAnimalUseCase getAnimalUseCase;
         private readonly IGetAnimalsUseCase getAnimalsUseCase;
+        
         protected AbstractAnimalsApi(ICreateAnimalUseCase createAnimalUseCase, IGetAnimalUseCase getAnimalUseCase, IGetAnimalsUseCase getAnimalsUseCase)
         {
             this.createAnimalUseCase = createAnimalUseCase ?? throw new ArgumentNullException(nameof(createAnimalUseCase));
@@ -46,9 +47,7 @@ namespace Company.Product.Adapters.Rest.Controllers
         [Route("/animals/{animalId}")]
         public async virtual Task<ActionResult<Animal>> GetAnimal(Guid animalId, CancellationToken cancellationToken) 
         {
-            var animal = await getAnimalUseCase.Execute(animalId: animalId, cancellationToken: cancellationToken);
-            
-            return animal;
+            return await getAnimalUseCase.Execute(animalId: animalId, cancellationToken: cancellationToken);
         }
     }
 }
