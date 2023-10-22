@@ -26,7 +26,7 @@ namespace Company.Product.Adapters.Rest.Controllers
             [FromQuery]int offset,
              CancellationToken cancellationToken) 
         {
-            var animals = await getAnimalsUseCase.GetAnimals(filter: filter, limit: limit, offset: offset, cancellationToken: cancellationToken);
+            var animals = await getAnimalsUseCase.Execute(filter: filter, limit: limit, offset: offset, cancellationToken: cancellationToken);
 
             return new GetAnimalsResponse()
             {

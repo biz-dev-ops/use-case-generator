@@ -8,7 +8,7 @@ namespace Company.Product.Domain.UseCases.Mocks
 {
     public class GetAnimalsUseCaseMock : IGetAnimalsUseCase
     {
-        public Task<IEnumerable<Animal>> GetAnimals(string filter, int limit, int offset, CancellationToken cancellationToken)
+        public Task<IEnumerable<Animal>> Execute(string filter, int limit, int offset, CancellationToken cancellationToken)
         {
             var animals = new List<Animal>();
             switch (filter)

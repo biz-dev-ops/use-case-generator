@@ -9,7 +9,7 @@ public class GetAnimalsUseCase : IGetAnimalsUseCase
         this.getTypesPort = getTypesPort ?? throw new ArgumentNullException(nameof(getTypesPort));
     }
 
-    public Task<IEnumerable<Animal>> GetAnimals(string filter, int limit, int offset, CancellationToken cancellationToken)
+    public Task<IEnumerable<Animal>> Execute(string filter, int limit, int offset, CancellationToken cancellationToken)
     {
         IQueryable<Animal> query =  Enumerable.Empty<Animal>().AsQueryable()
             .Skip(offset)
