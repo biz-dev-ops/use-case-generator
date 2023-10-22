@@ -34,4 +34,10 @@ public class AnimalsApi : AbstractAnimalsApi
 
         return response;
     }
+    public override async Task<ActionResult<GetAnimalResponse>> GetAnimal(Guid animalId, CancellationToken cancellationToken)
+    {
+        var response = await base.GetAnimal(animalId, cancellationToken);
+
+        return response;
+    }
 }

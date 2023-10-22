@@ -45,9 +45,14 @@ namespace Company.Product.Adapters.Rest.Controllers
 
         [HttpGet]
         [Route("/animals/{animalId}")]
-        public async virtual Task<ActionResult<Animal>> GetAnimal(Guid animalId, CancellationToken cancellationToken) 
+        public async virtual Task<ActionResult<GetAnimalResponse>> GetAnimal(Guid animalId, CancellationToken cancellationToken) 
         {
-            return await getAnimalUseCase.Execute(animalId: animalId, cancellationToken: cancellationToken);
+            var animal = await getAnimalUseCase.Execute(animalId: animalId, cancellationToken: cancellationToken);
+
+            return new GetAnimalResponse()
+            {
+                Animal = animal
+            };
         }
     }
 }
