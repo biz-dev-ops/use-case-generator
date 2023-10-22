@@ -29,7 +29,7 @@ namespace BizDevOps.Adapters.Json.Resolvers
 
             var options = new JsonPolymorphismOptions
             {
-                TypeDiscriminatorPropertyName = typeDiscriminatorPropertyName,
+                TypeDiscriminatorPropertyName = typeDiscriminatorPropertyName ?? "$type",
                 IgnoreUnrecognizedTypeDiscriminators = true,
                 UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FailSerialization
             };
@@ -44,6 +44,6 @@ namespace BizDevOps.Adapters.Json.Resolvers
             => type.GetCustomAttribute<PolymorphismInfoAttribute>(false)?.DiscriminatorProperty;
 
         private static IEnumerable<JsonDerivedType> MapDerivedTypese(Type type)
-            => type.GetCustomAttributes<SubTypeAttribute>(false).Select(s => new JsonDerivedType(s.Type, s.Discriminator));
+            => type.GetCustomAttributes<SubTypeAttribute>(false).Select(s => new JsonDerivedType(s.Type, s.Discriminator ?? s.Type.Name));
     }
 }

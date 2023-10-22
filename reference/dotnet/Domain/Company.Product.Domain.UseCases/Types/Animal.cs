@@ -3,10 +3,10 @@ using BizDevOps.Core.Attributes;
 namespace Company.Product.Domain.UseCases.Types
 {
 
-    [PolymorphismInfo("object_type") ]
-    [SubType(typeof(Cat), "CAT")]
-    [SubType(typeof(Cow), "COW")]
-    [SubType(typeof(Dog), "DOG")]
+    [PolymorphismInfo(DiscriminatorProperty = "object_type")]
+    [SubType(typeof(Cat), Discriminator = "CAT")]
+    [SubType(typeof(Cow), Discriminator = "COW")]
+    [SubType(typeof(Dog), Discriminator = "DOG")]
     public abstract class Animal
     {
         public string Sound { get; set; }
