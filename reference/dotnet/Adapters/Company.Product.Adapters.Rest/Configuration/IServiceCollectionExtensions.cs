@@ -7,19 +7,20 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddAdaptersRest(this IServiceCollection services)
     {
         services
-            .AddAdaptersRestGenerated();
+            .AddControllers(config =>
+            {
+                config.Filters.Add<ValidateModelStateAttribute>();
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.TypeInfoResolver = new PolymorphicTypeResolver();
+            });
 
         return services
+            .AddBizDevOpsAdaptersSwashbuckle()
             .AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Product", Version = "v1" });
-
-                c.UseAllOfForInheritance();
-                c.UseOneOfForPolymorphism();
-
-                c.SelectSubTypesUsing(baseType =>
-                    baseType.Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType) || baseType.IsAssignableFrom(type))
-                );
             });
     }
 }

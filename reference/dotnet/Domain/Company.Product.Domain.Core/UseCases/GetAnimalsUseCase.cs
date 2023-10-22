@@ -11,8 +11,10 @@ public class GetAnimalsUseCase : IGetAnimalsUseCase
 
     public Task<IEnumerable<Animal>> GetAnimals(string filter, int limit, int offset, CancellationToken cancellationToken)
     {
-        dynamic f = new { Filter = filter, Limit = limit, Offset = offset};
+        IQueryable<Animal> query =  Enumerable.Empty<Animal>().AsQueryable()
+            .Skip(offset)
+            .Take(limit);
 
-        return getTypesPort.GetTypes(filter: f, cancellationToken: cancellationToken);
+        return getTypesPort.GetTypes(query: query, cancellationToken: cancellationToken);
     }
 }

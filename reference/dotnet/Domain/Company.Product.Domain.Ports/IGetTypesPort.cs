@@ -4,5 +4,7 @@
 [Query]
 public interface IGetTypesPort
 {
-    public Task<IEnumerable<T>> GetTypes<T>(dynamic filter, CancellationToken cancellationToken);
+    public Task<IEnumerable<T>> GetTypes<T>(IQueryable<T> query, CancellationToken cancellationToken);
+
+
 }

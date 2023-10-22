@@ -1,11 +1,11 @@
 using Company.Product.Domain.UseCases;
 using Company.Product.Adapters.Rest.Models;
 
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Company.Product.Adapters.Rest.Controllers
 {
