@@ -1,3 +1,5 @@
+using Company.Product.Adapters.Rest.Attributes;
+
 namespace Company.Product.Adapters.Rest.Configuration;
 
 public static class IServiceCollectionExtensions
@@ -10,7 +12,7 @@ public static class IServiceCollectionExtensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Product", Version = "v1" });
             })
-            .AddControllers();
+            .AddControllers(options => options.Filters.Add(new NotFoundFilterAttribute()));
 
         return services;
     }

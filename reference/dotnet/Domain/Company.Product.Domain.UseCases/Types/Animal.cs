@@ -1,3 +1,4 @@
+using System;
 using BizDevOps.Core.Attributes;
 
 namespace Company.Product.Domain.UseCases.Types
@@ -9,6 +10,7 @@ namespace Company.Product.Domain.UseCases.Types
     [SubType(typeof(Dog), Discriminator = "DOG")]
     public abstract class Animal
     {
+        public Guid AnimalId { get; set; }
         public string Sound { get; set; }
     }
 }
