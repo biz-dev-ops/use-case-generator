@@ -1,8 +1,12 @@
+using BizDevOps.Core.Attributes;
+using BizDevOps.Adapters.Swashbuckle.Attributes;
+using BizDevOps.Adapters.Json.Resolvers;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BizDevOps.Core.Attributes;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BizDevOps.Adapters.Swashbuckle.Configuration
@@ -12,6 +16,8 @@ namespace BizDevOps.Adapters.Swashbuckle.Configuration
         public static IServiceCollection AddBizDevOpsAdaptersSwashbuckle(this IServiceCollection services)
         {
             services
+                .Configure<MvcOptions>(options => options.Filters.Add<ValidateModelStateAttribute>())
+                .Configure<JsonOptions>(options => options.JsonSerializerOptions.TypeInfoResolver = new PolymorphicTypeResolver())
                 .ConfigureSwaggerGen(options => {
                     options.UseAllOfForInheritance();
                     options.UseOneOfForPolymorphism();
@@ -35,19 +41,16 @@ namespace BizDevOps.Adapters.Swashbuckle.Configuration
 
         private static IEnumerable<Type> GetParentTypes(this Type type)
         {
-            // is there any base type?
             if (type == null)
             {
                 yield break;
             }
 
-            // return all implemented or inherited interfaces
             foreach (var i in type.GetInterfaces())
             {
                 yield return i;
             }
 
-            // return all inherited types
             var currentBaseType = type.BaseType;
             while (currentBaseType != null)
             {

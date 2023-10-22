@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Company.Product.Adapters.Rest.Attributes
+namespace BizDevOps.Adapters.Swashbuckle.Attributes
 {
     public class ValidateModelStateAttribute : ActionFilterAttribute
     {
