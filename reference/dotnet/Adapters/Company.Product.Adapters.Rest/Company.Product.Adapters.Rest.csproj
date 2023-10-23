@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Company.Product.Adapters.Rest.Generated\Company.Product.Adapters.Rest.Generated.csproj" />
+    <ProjectReference Include="..\..\BizDevOps\BizDevOps.Adapters.Json\BizDevOps.Adapters.Json.csproj" />
+    <ProjectReference Include="..\..\BizDevOps\BizDevOps.Adapters.Swashbuckle\BizDevOps.Adapters.Swashbuckle.csproj" />
+  </ItemGroup>
+
+</Project>

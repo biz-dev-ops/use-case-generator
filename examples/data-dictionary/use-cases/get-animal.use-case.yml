@@ -1,0 +1,5 @@
+parameters:
+  animal_id:
+    $ref: "../types/animal_id.yml"
+response:
+  $ref: "../types/animal.yml#/animal"

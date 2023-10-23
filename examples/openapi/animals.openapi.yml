@@ -6,63 +6,77 @@ info:
 paths:
 
   /animals:
+    post:
+      tags:
+        - animals
+      summary: Create animal.
+      operationId: CreateAnimal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "../data-dictionary/use-cases/create-animal.use-case.yml#/parameters/animal"
+      responses:
+        201:
+          description: Created at
+          content:
+            application/json:
+              schema:
+                properties:
+                  location:
+                    type: string
+                    format: uri
     get:
       tags:
         - animals
       summary: Retrieves animals.
       operationId: GetAnimals
       parameters:
-        - $ref: "#/components/parameters/filter"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/offset"
+        - in: query
+          name: offset
+          required: true
+          schema:
+            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/offset"
+        - in: query
+          name: offset
+          required: true
+          schema:
+            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/offset"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/get_animals_response"
+                allOf:
+                  - $ref: "../data-dictionary/base/offset-response.yml"
+                  - title: get animals response
+                    properties:
+                      animals:
+                        $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/response"
 
-components:
-
-  parameters:
-    
-    filter:
-      in: query
-      name: filter
-      required: true
-      schema:
-        $ref: "#/components/schemas/filter"
-
-    limit:
-      in: query
-      name: limit
-      required: true
-      schema:
-        $ref: "#/components/schemas/limit"
-
-    offset:
-      in: query
-      name: offset
-      required: true
-      schema:
-        $ref: "#/components/schemas/offset"
-
-  schemas:
-
-    filter:
-      $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/filter"
-
-    limit:
-      $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/limit"
-
-    offset:
-      $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/offset"
-
-    get_animals_response:
-      allOf:
-        - $ref: "../data-dictionary/base/offset-response.yml"
-        - title: get animals response
-          properties:
-            animals:
-              $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/response"
+  /animals/{animal_id}:
+    get:
+      tags:
+        - animals
+      summary: Retrieves an animal.
+      operationId: GetAnimal
+      parameters:
+        - in: path
+          name: animal_id
+          required: true
+          schema:
+            $ref: "../data-dictionary/use-cases/get-animal.use-case.yml#/parameters/animal_id"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                 allOf:
+                  - $ref: "../data-dictionary/base/response.yml"
+                  - title: get animal response
+                    properties:
+                      animal:
+                        $ref: "../data-dictionary/use-cases/get-animal.use-case.yml#/response"
+      

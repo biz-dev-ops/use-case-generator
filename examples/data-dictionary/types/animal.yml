@@ -1,9 +1,13 @@
 animal:
   required:
     - object_type
+    - animal_id
   properties:
     object_type:
       type: string
+    animal_id:
+      type: string
+      format: uuid
   oneOf:
     - $ref: "#/dog"
     - $ref: "#/cat"
@@ -15,14 +19,9 @@ animal:
       "COW": "#/cow"
       "DOG": "#/dog"
 
-abstract_animal:
-  properties:
-    sound:
-      type: string
-
 dog:
   allOf:
-    - $ref: "#/abstract_animal"
+    - $ref: "#/animal"
     - title: dog
       properties:
         a:
@@ -30,7 +29,7 @@ dog:
 
 cat:
   allOf:
-    - $ref: "#/abstract_animal"
+    - $ref: "#/animal"
     - title: cat
       properties:
         b:
@@ -38,7 +37,7 @@ cat:
 
 cow:
   allOf:
-    - $ref: "#/abstract_animal"
+    - $ref: "#/animal"
     - title: cow
       properties:
         c:
