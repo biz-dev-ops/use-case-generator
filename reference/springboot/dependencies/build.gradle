@@ -1,0 +1,22 @@
+plugins {
+    id 'java-platform'
+}
+
+group = 'com.example'
+version = (findProperty('versionApi') == null) ? '0.0.1-SNAPSHOT' : findProperty('versionApi')
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+    api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    api platform("org.junit:junit-bom:5.9.1")
+
+    // version contstraints
+    constraints {
+        api 'io.swagger.core.v3:swagger-annotations:2.2.16'
+        api 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+        api "org.projectlombok:lombok:${lombokVersion}"
+    }
+}

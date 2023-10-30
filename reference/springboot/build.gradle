@@ -1,0 +1,62 @@
+// ignore dependencies module which should contain version constraints only
+def notDependencies() {
+    subprojects.findAll { it.name != 'dependencies' }
+}
+
+// any module except dependencies or -app is a java-library
+def libraries() {
+    notDependencies().findAll { !(it.name =~ /-app$/) }
+}
+
+// any module with -app suffix is java application
+def applications() {
+    notDependencies().findAll { it.name =~ /-app$/ }
+}
+
+
+configure(applications()) {
+    apply plugin: 'java'
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+configure(libraries()) {
+    apply plugin: 'java-library'
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+configure(notDependencies()) {
+    group = "com.example"
+    version = (findProperty('version') == 'unspecified') ? '0.0.1-SNAPSHOT' : version
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        implementation platform(project(':dependencies'))
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+        testImplementation 'org.assertj:assertj-core'
+        testImplementation 'org.mockito:mockito-junit-jupiter'
+
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+}
