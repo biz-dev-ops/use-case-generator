@@ -1,0 +1,9 @@
+rootProject.name = 'demo'
+include 'dependencies'
+include 'domain'
+include 'rest-api'
+include 'runtime-app'
+include 'storage'
+include 'core'
+include 'rest'
+
