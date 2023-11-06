@@ -1,0 +1,8 @@
+springdoc:
+  packagesToScan:
+    - org.example.rest
+  swagger-ui:
+    tryItOutEnabled: true
+
+application:
+  storage: in-memory
