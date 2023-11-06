@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.UseC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{D29CA249-4BFD-43D5-A690-BF13E68CADFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Applications.Mocked", "Applications\Company.Product.Applications.Mocked\Company.Product.Applications.Mocked.csproj", "{31433234-5793-4DA3-88E8-995AD5304EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Runtime.Mocked", "Runtime\Company.Product.Runtime.Mocked\Company.Product.Runtime.Mocked.csproj", "{31433234-5793-4DA3-88E8-995AD5304EF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Adapters.Rest.Generated", "Adapters\Company.Product.Adapters.Rest.Generated\Company.Product.Adapters.Rest.Generated.csproj", "{055AA5BB-8FA4-4673-8AE1-424CF0376E61}"
 EndProject
