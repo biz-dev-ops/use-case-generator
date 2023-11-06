@@ -10,6 +10,6 @@ namespace Company.Product.Domain.UseCases
     [Command]
     public interface ICreateAnimalUseCase
     {
-       Task Execute(Animal animal, CancellationToken cancellationToken);
+       Task CreateAnimal(Animal animal, CancellationToken cancellationToken);
     }
 }

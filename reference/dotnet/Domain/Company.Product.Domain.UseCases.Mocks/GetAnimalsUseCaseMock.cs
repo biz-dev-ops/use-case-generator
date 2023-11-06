@@ -16,7 +16,7 @@ namespace Company.Product.Domain.UseCases.Mocks
             this.animalStore = animalStore ?? throw new ArgumentNullException(nameof(animalStore));
         }
 
-        public Task<IEnumerable<Animal>> Execute(int limit, int offset, CancellationToken cancellationToken)
+        public Task<IEnumerable<Animal>> GetAnimals(int limit, int offset, CancellationToken cancellationToken)
         {
             return Task.FromResult(animalStore.Animals.Skip(offset).Take(limit));
         }

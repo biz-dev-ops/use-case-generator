@@ -8,6 +8,8 @@ animal:
     animal_id:
       type: string
       format: uuid
+    sound:
+      type: string
   oneOf:
     - $ref: "#/dog"
     - $ref: "#/cat"

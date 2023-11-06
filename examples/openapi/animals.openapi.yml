@@ -33,10 +33,10 @@ paths:
       operationId: GetAnimals
       parameters:
         - in: query
-          name: offset
+          name: limit
           required: true
           schema:
-            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/offset"
+            $ref: "../data-dictionary/use-cases/get-animals.use-case.yml#/parameters/limit"
         - in: query
           name: offset
           required: true

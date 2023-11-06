@@ -11,6 +11,6 @@ namespace Company.Product.Domain.UseCases
     [Query]
     public interface IGetAnimalUseCase
     {
-       Task<Animal> Execute(Guid animalId, CancellationToken cancellationToken);
+       Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken);
     }
 }

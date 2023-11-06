@@ -14,7 +14,7 @@ namespace Company.Product.Domain.UseCases.Mocks
             this.animalStore = animalStore ?? throw new ArgumentNullException(nameof(animalStore));
         }
 
-        public Task<Animal> Execute(Guid animalId, CancellationToken cancellationToken)
+        public Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken)
         {   
             return Task.FromResult(animalStore.Animals.First(a => a.AnimalId.Equals(animalId)));
         }

@@ -2,19 +2,8 @@
 
 public class GetAnimalsUseCase : IGetAnimalsUseCase
 {
-    private readonly IGetTypesPort getTypesPort;
-
-    public GetAnimalsUseCase(IGetTypesPort getTypesPort)
+    public Task<IEnumerable<Animal>> GetAnimals(int limit, int offset, CancellationToken cancellationToken)
     {
-        this.getTypesPort = getTypesPort ?? throw new ArgumentNullException(nameof(getTypesPort));
-    }
-
-    public Task<IEnumerable<Animal>> Execute(int limit, int offset, CancellationToken cancellationToken)
-    {
-        IQueryable<Animal> query =  Enumerable.Empty<Animal>().AsQueryable()
-            .Skip(offset)
-            .Take(limit);
-
-        return getTypesPort.GetTypes(query: query, cancellationToken: cancellationToken);
+       throw new NotImplementedException();
     }
 }

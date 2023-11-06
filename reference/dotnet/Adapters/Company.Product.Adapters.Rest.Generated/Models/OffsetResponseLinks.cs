@@ -1,7 +1,6 @@
-namespace Company.Product.Adapters.Rest.Models
+namespace Company.Product.Adapters.Rest.Models;
+
+public class OffsetResponseLinks
 {
-    public class OffsetResponseLinks
-    { 
-        public string Next { get; set; }
-    }
+    public string Next { get; set; }
 }

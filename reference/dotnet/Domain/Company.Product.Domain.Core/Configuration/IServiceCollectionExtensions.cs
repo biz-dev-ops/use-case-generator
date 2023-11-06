@@ -5,6 +5,8 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddDomainCore(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IGetAnimalsUseCase, GetAnimalsUseCase>();
+            .AddSingleton<ICreateAnimalUseCase, CreateAnimalUseCase>()
+            .AddSingleton<IGetAnimalsUseCase, GetAnimalsUseCase>()
+            .AddSingleton<IGetAnimalUseCase, GetAnimalUseCase>();
     }
 }

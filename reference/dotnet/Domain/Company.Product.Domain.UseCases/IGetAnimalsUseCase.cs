@@ -11,6 +11,6 @@ namespace Company.Product.Domain.UseCases
     [Query]
     public interface IGetAnimalsUseCase
     {
-       Task<IEnumerable<Animal>> Execute(int limit, int offset, CancellationToken cancellationToken);
+       Task<IEnumerable<Animal>> GetAnimals(int limit, int offset, CancellationToken cancellationToken);
     }
 }
