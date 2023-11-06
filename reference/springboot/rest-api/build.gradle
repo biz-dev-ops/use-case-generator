@@ -1,7 +1,0 @@
-dependencies {
-    api project(':core')
-
-    api 'org.springframework:spring-web'
-    api 'com.fasterxml.jackson.core:jackson-annotations'
-    api 'io.swagger.core.v3:swagger-annotations'
-}

@@ -1,0 +1,10 @@
+dependencies {
+    api project(':adapters-rest-generated')
+
+    api 'org.springframework:spring-web'
+    api 'com.fasterxml.jackson.core:jackson-annotations'
+    api 'io.swagger.core.v3:swagger-annotations'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+}
