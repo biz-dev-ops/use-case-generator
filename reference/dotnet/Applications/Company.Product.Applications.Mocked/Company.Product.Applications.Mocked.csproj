@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Adapters\Company.Product.Adapters.Rest\Company.Product.Adapters.Rest.csproj" />
-    <ProjectReference Include="..\..\Domain\Company.Product.Domain.UseCases.Mocks\Company.Product.Domain.UseCases.Mocks.csproj" />
+    <ProjectReference Include="..\..\Domain\Company.Product.Domain.UseCases.Mocked\Company.Product.Domain.UseCases.Mocked.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

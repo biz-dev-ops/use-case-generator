@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Company.Product.Domain.UseCases.Mocks
+namespace Company.Product.Domain.UseCases.Mocked
 {
     public class GetAnimalsUseCaseMock : IGetAnimalsUseCase
     {
