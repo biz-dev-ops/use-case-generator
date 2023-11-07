@@ -11,6 +11,7 @@ public static class IServiceCollectionExtensions
                 options.UseAllOfForInheritance();
                 options.UseOneOfForPolymorphism();
                 options.ConfigureJsonPolymorphic();
+                options.OperationFilter<Vernou.Swashbuckle.HttpResultsAdapter.HttpResultsOperationFilter>();
             });
 
         services

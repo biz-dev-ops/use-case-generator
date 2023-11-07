@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Vernou.Swashbuckle.HttpResultsAdapter" Version="1.0.2" />
   </ItemGroup>
   
   <ItemGroup>
