@@ -11,6 +11,14 @@ import org.example.domain.usecases.types.Dog;
 
 import java.util.UUID;
 
+/*
+ discriminator:
+    propertyName: object_type
+    mapping:
+      "CAT": "#/cat"
+      "COW": "#/cow"
+      "DOG": "#/dog"
+ */
 @Data
 @Schema(name = "Animal")
 @JsonIgnoreProperties(

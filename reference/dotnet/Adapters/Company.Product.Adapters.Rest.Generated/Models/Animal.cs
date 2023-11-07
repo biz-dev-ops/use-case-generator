@@ -1,5 +1,13 @@
 namespace Company.Product.Adapters.Rest.Models;
 
+/*
+ discriminator:
+    propertyName: object_type
+    mapping:
+      "CAT": "#/cat"
+      "COW": "#/cow"
+      "DOG": "#/dog"
+ */
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "objectType")]
 [JsonDerivedType(typeof(Cat), "CAT")]
 [JsonDerivedType(typeof(Cow), "COW")]
