@@ -19,7 +19,7 @@ namespace Company.Product.Domain.UseCases.Types
                 throw new ArgumentNullException(nameof(visitor));
             }
 
-            return visitor.VisitCow(this);
+            return visitor.Visit(this);
         }
     }
 }

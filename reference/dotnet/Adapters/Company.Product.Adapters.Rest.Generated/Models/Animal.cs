@@ -23,7 +23,7 @@ public abstract class Animal
 
     private class AnimalVisitor : Domain.UseCases.Types.AnimalVisitor<Animal>
     {
-        public Animal VisitCat(Domain.UseCases.Types.Cat cat)
+        public Animal Visit(Domain.UseCases.Types.Cat cat)
         {
             return new Cat()
             {
@@ -33,7 +33,7 @@ public abstract class Animal
             };
         }
 
-        public Animal VisitCow(Domain.UseCases.Types.Cow cow)
+        public Animal Visit(Domain.UseCases.Types.Cow cow)
         {
             return new Cow()
             {
@@ -43,7 +43,7 @@ public abstract class Animal
             };
         }
 
-        public Animal VisitDog(Domain.UseCases.Types.Dog dog)
+        public Animal Visit(Domain.UseCases.Types.Dog dog)
         {
             return new Dog()
             {
