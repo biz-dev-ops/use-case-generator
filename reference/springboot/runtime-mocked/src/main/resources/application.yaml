@@ -1,6 +1,6 @@
 springdoc:
   packagesToScan:
-    - org.example.rest
+    - org.example.adapters.rest
   swagger-ui:
     tryItOutEnabled: true
 

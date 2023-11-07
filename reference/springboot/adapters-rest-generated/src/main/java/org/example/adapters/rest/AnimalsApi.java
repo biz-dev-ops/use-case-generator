@@ -5,19 +5,29 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
 import org.example.adapters.rest.dto.AnimalDto;
 import org.example.adapters.rest.dto.CreateAnimalResponse;
 import org.example.adapters.rest.dto.GetAnimalResponse;
 import org.example.adapters.rest.dto.GetAnimalsResponse;
+import org.example.adapters.rest.dto.LinksDto;
+import org.example.domain.usecases.CreateAnimalUseCase;
+import org.example.domain.usecases.GetAnimalUseCase;
+import org.example.domain.usecases.GetAnimalsUseCase;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @Tag(name = "animals", description = "Animals API")
-public interface AnimalsApi {
+@RequiredArgsConstructor
+public abstract class AnimalsApi {
+    private final GetAnimalUseCase getAnimalUseCase;
+    private final GetAnimalsUseCase getAnimalsUseCase;
+    private final CreateAnimalUseCase createAnimalUseCase;
 
     @Operation(
         operationId = "GetAnimals",
@@ -36,8 +46,18 @@ public interface AnimalsApi {
         value = "/animals",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<GetAnimalsResponse> getAnimals(@RequestParam("limit") int limit,
-                                                  @RequestParam("offset") int offset);
+    public ResponseEntity<GetAnimalsResponse> getAnimals(@RequestParam("limit") int limit, @RequestParam("offset") int offset) {
+        // discrepancy, map explicit limit/offset to best-practice Page/Pageable
+        var animals = getAnimalsUseCase.getAnimals(limit, offset);
+
+        var response = new GetAnimalsResponse();
+        response.setAnimals(DomainDtoMapper.map(animals));
+        response.setMessages(List.of()); // why?
+
+        var links = new LinksDto();
+        response.setLinks(links);
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(
         operationId = "GetAnimal",
@@ -56,7 +76,13 @@ public interface AnimalsApi {
         value = "/animals/{animal_id}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<GetAnimalResponse> getAnimal(@PathVariable("animal_id") UUID animal_id);
+    public ResponseEntity<GetAnimalResponse> getAnimal(@PathVariable("animal_id") UUID animal_id) {
+        var animal = getAnimalUseCase.getAnimal(animal_id);
+        var response = new GetAnimalResponse();
+        response.setMessages(List.of()); // why GET response contains .messages?
+        response.setAnimal(DomainDtoMapper.map(animal));
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(
         operationId = "CreateAnimal",
@@ -76,5 +102,8 @@ public interface AnimalsApi {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<CreateAnimalResponse> createAnimal(@RequestBody AnimalDto content);
+    public ResponseEntity<Void> createAnimal(@RequestBody AnimalDto content) {
+        createAnimalUseCase.createAnimal(DomainDtoMapper.map(content));
+        return null;
+    }
 }

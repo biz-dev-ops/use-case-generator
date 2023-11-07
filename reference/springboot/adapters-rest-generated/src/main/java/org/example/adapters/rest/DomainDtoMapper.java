@@ -5,8 +5,6 @@ import org.example.adapters.rest.dto.CatDto;
 import org.example.adapters.rest.dto.CowDto;
 import org.example.adapters.rest.dto.DogDto;
 import org.example.domain.usecases.types.*;
-import org.springframework.data.domain.Page;
-
 import java.util.List;
 
 public class DomainDtoMapper {
@@ -40,12 +38,14 @@ public class DomainDtoMapper {
 
             private void setAnimal(AnimalDto dto, Animal animal) {
                 dto.setAnimalId(animal.getAnimalId());
+                dto.setSound(animal.getSound());
             }
         });
     }
 
-    public static List<AnimalDto> map(Page<Animal> animals) {
-        return animals.map(DomainDtoMapper::map)
+    public static List<AnimalDto> map(List<Animal> animals) {
+        return animals.stream()
+            .map((DomainDtoMapper::map))
             .toList();
     }
 

@@ -1,8 +1,6 @@
 package org.example.adapters.rest;
 
-import lombok.RequiredArgsConstructor;
 import org.example.adapters.rest.dto.AnimalDto;
-import org.example.adapters.rest.dto.CreateAnimalResponse;
 import org.example.adapters.rest.dto.GetAnimalResponse;
 import org.example.adapters.rest.dto.GetAnimalsResponse;
 import org.example.domain.usecases.CreateAnimalUseCase;
@@ -14,33 +12,38 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.UUID;
 
-import static org.example.adapters.rest.ResponseMapper.*;
-
 @RestController
-@RequiredArgsConstructor
-public class AnimalsController implements AnimalsApi {
-    private final GetAnimalUseCase getAnimalUseCase;
-    private final GetAnimalsUseCase getAnimalsUseCase;
-    private final CreateAnimalUseCase createAnimalUseCase;
+public class AnimalsController extends AnimalsApi {
+
+    public AnimalsController(GetAnimalUseCase getAnimalUseCase, GetAnimalsUseCase getAnimalsUseCase, CreateAnimalUseCase createAnimalUseCase) {
+        super(getAnimalUseCase, getAnimalsUseCase, createAnimalUseCase);
+    }
 
     @Override
     public ResponseEntity<GetAnimalsResponse> getAnimals(int limit, int offset) {
-        // discrepancy, map explicit limit/offset to best-practice Page/Pageable
-        var response = mapGetAnimalsResponse(getAnimalsUseCase.getAnimals(limitOffsetToPageable(limit, offset)));
-        return ResponseEntity.ok(response);
+        var response = super.getAnimals(limit, offset);
+
+        // discrepancy, path duplication. Is there a possibility to construct url bases on an operation?
+        var nextLink = UriComponentsBuilder.fromPath("/animals")
+            .queryParam("limit", limit)
+            .queryParam("offset", offset + limit)
+            .build()
+            .toUri();
+
+        response.getBody().getLinks().setNext(nextLink);
+        return response;
     }
 
     @Override
     public ResponseEntity<GetAnimalResponse> getAnimal(UUID animal_id) {
-        var response = mapGetAnimalResponse(getAnimalUseCase.getAnimal(animal_id));
-        return ResponseEntity.ok(response);
+        return super.getAnimal(animal_id);
     }
 
     @Override
-    public ResponseEntity<CreateAnimalResponse> createAnimal(AnimalDto animal) {
-        createAnimalUseCase.createAnimal(DomainDtoMapper.map(animal));
+    public ResponseEntity<Void> createAnimal(AnimalDto animal) {
+        super.createAnimal(animal);
+         // discrepancy, path duplication. Is there a possibility to construct url bases on an operation?
         var location = UriComponentsBuilder.fromPath("/animals/{animal_id}").build(animal.getAnimalId());
-        var response = mapCreateAnimalResponse(location);
-        return ResponseEntity.created(location).body(response);
+        return ResponseEntity.created(location).build();
     }
 }

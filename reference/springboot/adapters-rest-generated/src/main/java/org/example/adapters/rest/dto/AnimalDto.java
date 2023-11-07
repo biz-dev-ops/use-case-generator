@@ -9,8 +9,15 @@ import java.util.UUID;
 
 @Data
 @Schema(name = "Animal")
-@JsonIgnoreProperties(value = "object_type", allowSetters = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "object_type", visible = true)
+@JsonIgnoreProperties(
+    value = "object_type", 
+    allowSetters = true
+)
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME, 
+    property = "object_type", 
+    visible = true
+)
 @JsonSubTypes({
     @JsonSubTypes.Type(value = CatDto.class, name = "CAT"),
     @JsonSubTypes.Type(value = CowDto.class, name = "COW"),

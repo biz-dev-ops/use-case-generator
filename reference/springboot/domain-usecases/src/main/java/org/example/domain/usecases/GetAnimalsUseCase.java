@@ -1,10 +1,10 @@
 package org.example.domain.usecases;
 
+import java.util.List;
+
 import org.example.domain.usecases.types.Animal;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface GetAnimalsUseCase {
 
-    Page<Animal> getAnimals(Pageable pageable);
+    List<Animal> getAnimals(int limit, int offset);
 }
