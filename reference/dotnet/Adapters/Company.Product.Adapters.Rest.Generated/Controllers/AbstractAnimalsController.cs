@@ -32,7 +32,7 @@ public abstract class AbstractAnimalsController : ControllerBase
 
         var body = new GetAnimalsResponse()
         {
-            Animals = animals.Select(a => AnimalMapper.FromDomain(a))
+            Animals = animals.Select(a => Animal.FromDomain(a))
         };
 
         return TypedResults.Ok(body);
@@ -46,7 +46,7 @@ public abstract class AbstractAnimalsController : ControllerBase
 
         var body = new GetAnimalResponse()
         {
-            Animal = AnimalMapper.FromDomain(animal)
+            Animal = Animal.FromDomain(animal)
         };
 
         return TypedResults.Ok(body);
