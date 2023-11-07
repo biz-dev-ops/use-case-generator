@@ -10,7 +10,8 @@ public static class IServiceCollectionExtensions
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Product", Version = "v1" });
                 options.UseAllOfForInheritance();
                 options.UseOneOfForPolymorphism();
-                options.ConfigureJsonPolymorphic();
+                options.ConfigureJsonPolymorphicAdapter();
+                options.ConfigureHttpResultsAdapter();
                 options.OperationFilter<Vernou.Swashbuckle.HttpResultsAdapter.HttpResultsOperationFilter>();
             });
 
@@ -23,8 +24,15 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
+    // BEGIN: Swashbuckle does not support HttpResults: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/2595
+    private static void ConfigureHttpResultsAdapter(this SwaggerGenOptions options)
+    {
+        options.OperationFilter<Vernou.Swashbuckle.HttpResultsAdapter.HttpResultsOperationFilter>();
+    }
+    // END: Swashbuckle does not support HttpResults: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/2595
+
     // BEGIN: Swashbuckle does not support Json Polymorphic: https://github.com/domaindrivendev/Swashbuckle.AspNetCore/pull/2671
-    private static void ConfigureJsonPolymorphic(this SwaggerGenOptions options)
+    private static void ConfigureJsonPolymorphicAdapter(this SwaggerGenOptions options)
     {
         options.SelectDiscriminatorNameUsing(baseType => baseType.GetCustomAttribute<JsonPolymorphicAttribute>()?.TypeDiscriminatorPropertyName);
         options.SelectSubTypesUsing(baseType => baseType.GetCustomAttributes<JsonDerivedTypeAttribute>().Select(s => s.DerivedType));

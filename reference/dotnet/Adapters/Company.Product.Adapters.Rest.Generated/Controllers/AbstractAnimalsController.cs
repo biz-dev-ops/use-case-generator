@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Company.Product.Adapters.Rest.Controllers;
 
-[ApiController]
 public abstract class AbstractAnimalsController : ControllerBase
 {
     private readonly ICreateAnimalUseCase createAnimalUseCase;
