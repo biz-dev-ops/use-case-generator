@@ -40,7 +40,7 @@ public abstract class AnimalDto {
         return domain.visit(new AnimalVisitor<>() {
 
             @Override
-            public AnimalDto visitDog(Dog dog) {
+            public AnimalDto visit(Dog dog) {
                 var dto = new DogDto();
                 dto.setA(dog.getA());
                 setAnimal(dto, dog);
@@ -48,7 +48,7 @@ public abstract class AnimalDto {
             }
 
             @Override
-            public AnimalDto visitCat(Cat cat) {
+            public AnimalDto visit(Cat cat) {
                 var dto = new CatDto();
                 dto.setB(cat.getB());
                 setAnimal(dto, cat);
@@ -56,7 +56,7 @@ public abstract class AnimalDto {
             }
 
             @Override
-            public AnimalDto visitCow(Cow cow) {
+            public AnimalDto visit(Cow cow) {
                 var dto = new CowDto();
                 dto.setC(cow.getC());
                 setAnimal(dto, cow);

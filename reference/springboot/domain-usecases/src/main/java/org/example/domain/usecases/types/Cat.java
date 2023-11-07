@@ -17,6 +17,6 @@ public class Cat extends Animal {
 
     @Override
     public <T> T visit(AnimalVisitor<T> visitor) {
-        return visitor.visitCat(this);
+        return visitor.visit(this);
     }
 }

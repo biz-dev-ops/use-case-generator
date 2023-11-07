@@ -8,9 +8,9 @@ package org.example.domain.usecases.types;
  */
 public interface AnimalVisitor<T> {
 
-    T visitDog(Dog dog);
+    T visit(Dog dog);
 
-    T visitCat(Cat cat);
+    T visit(Cat cat);
 
-    T visitCow(Cow cow);
+    T visit(Cow cow);
 }
