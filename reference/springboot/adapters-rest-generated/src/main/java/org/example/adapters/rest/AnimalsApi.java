@@ -51,7 +51,9 @@ public abstract class AnimalsApi {
         var animals = getAnimalsUseCase.getAnimals(limit, offset);
 
         var response = new GetAnimalsResponse();
-        response.setAnimals(DomainDtoMapper.map(animals));
+        response.setAnimals(animals.stream()
+            .map((AnimalMapper::fromDomain))
+            .toList());
         response.setMessages(List.of()); // why?
 
         var links = new LinksDto();
@@ -80,7 +82,7 @@ public abstract class AnimalsApi {
         var animal = getAnimalUseCase.getAnimal(animal_id);
         var response = new GetAnimalResponse();
         response.setMessages(List.of()); // why GET response contains .messages?
-        response.setAnimal(DomainDtoMapper.map(animal));
+        response.setAnimal(AnimalMapper.fromDomain(animal));
         return ResponseEntity.ok(response);
     }
 
@@ -103,7 +105,7 @@ public abstract class AnimalsApi {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Void> createAnimal(@RequestBody AnimalDto content) {
-        createAnimalUseCase.createAnimal(DomainDtoMapper.map(content));
+        createAnimalUseCase.createAnimal(AnimalMapper.toDomain(content));
         return null;
     }
 }

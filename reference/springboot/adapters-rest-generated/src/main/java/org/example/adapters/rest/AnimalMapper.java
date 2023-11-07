@@ -5,11 +5,10 @@ import org.example.adapters.rest.dto.CatDto;
 import org.example.adapters.rest.dto.CowDto;
 import org.example.adapters.rest.dto.DogDto;
 import org.example.domain.usecases.types.*;
-import java.util.List;
 
-public class DomainDtoMapper {
+public class AnimalMapper {
 
-    public static AnimalDto map(Animal domain) {
+    public static AnimalDto fromDomain(Animal domain) {
         return domain.visit(new AnimalVisitor<>() {
 
             @Override
@@ -43,13 +42,7 @@ public class DomainDtoMapper {
         });
     }
 
-    public static List<AnimalDto> map(List<Animal> animals) {
-        return animals.stream()
-            .map((DomainDtoMapper::map))
-            .toList();
-    }
-
-    public static Animal map(AnimalDto dto) {
+    public static Animal toDomain(AnimalDto dto) {
         return dto.toDomain();
     }
 }
