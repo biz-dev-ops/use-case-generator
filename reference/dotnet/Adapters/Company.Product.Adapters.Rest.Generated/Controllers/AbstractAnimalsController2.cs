@@ -8,7 +8,7 @@ public abstract class AbstractAnimalsController2 : ControllerBase
 
     [HttpGet]
     [Route("/animals")]
-    public abstract Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery, Required] int limit, [FromQuery, Required] int offset, CancellationToken cancellationToken);
+    public abstract Task<Results<ForbidHttpResult, UnauthorizedHttpResult, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery, Required] int limit, [FromQuery, Required] int offset, CancellationToken cancellationToken);
 
     [HttpGet]
     [Route("/animals/{animalId}")]

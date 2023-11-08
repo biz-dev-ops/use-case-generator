@@ -1,40 +1,48 @@
+
+
 namespace Company.Product.Adapters.Rest.Controllers;
 
 public class AnimalsController : AbstractAnimalsController1
 {
-    public AnimalsController(ICreateAnimalUseCase createAnimalUseCase, IGetAnimalUseCase getAnimalUseCase, IGetAnimalsUseCase getAnimalsUseCase) 
+    public AnimalsController(ICreateAnimalUseCase createAnimalUseCase, IGetAnimalUseCase getAnimalUseCase, IGetAnimalsUseCase getAnimalsUseCase)
         : base(createAnimalUseCase, getAnimalUseCase, getAnimalsUseCase)
     { }
 
-    public override async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, Created>> CreateAnimal([FromBody, Required] Animal animal, CancellationToken cancellationToken)
+    protected override Results<ForbidHttpResult, UnauthorizedHttpResult, Created> Map(Animal animal)
     {
-        await base.CreateAnimal(animal, cancellationToken);
         var location = Url.Action(
             action: nameof(GetAnimal),
             values: new { animal.AnimalId }
         );
+
         return TypedResults.Created(location);
     }
 
-    public override async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery, Required] int limit, [FromQuery, Required] int offset, CancellationToken cancellationToken)
+    protected override Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalResponse>> Map(Guid animalId, Animal useCaseResponse)
     {
-        var results = await base.GetAnimals(limit: limit, offset: offset, cancellationToken: cancellationToken);
-
-        var ok = (Ok<GetAnimalsResponse>)results.Result;
-        
-        ok.Value.Links = new OffsetResponseLinks()
+        if (Equals(useCaseResponse, default(Animal)))
         {
-            Next = Url.Action(
-                action: nameof(GetAnimals),
-                values: new { limit, offset = offset + limit }
-            )
-        };
+            return TypedResults.NotFound();
+        }
 
-        return results;
+        return TypedResults.Ok(new GetAnimalResponse()
+        {
+            Animal = useCaseResponse
+        });
     }
 
-    public override Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalResponse>>> GetAnimal([FromRoute, Required] Guid animalId, CancellationToken cancellationToken)
+    protected override Results<ForbidHttpResult, UnauthorizedHttpResult, Ok<GetAnimalsResponse>> Map(int limit, int offset, IEnumerable<Animal> useCaseResponse)
     {
-        return base.GetAnimal(animalId, cancellationToken);
+        return TypedResults.Ok(new GetAnimalsResponse()
+        {
+            Animals = useCaseResponse,
+            Links = new OffsetResponseLinks()
+            {
+                Next = Url.Action(
+                    action: nameof(GetAnimals),
+                    values: new { limit, offset = offset + limit }
+                )
+            }
+        });
     }
 }

@@ -18,21 +18,16 @@ public abstract class AbstractAnimalsController1 : ControllerBase
     public virtual async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, Created>> CreateAnimal([FromBody, Required] Animal animal, CancellationToken cancellationToken)
     {
             await createAnimalUseCase.CreateAnimal(animal: animal.ToDomain(), cancellationToken: cancellationToken);
-            return null;
+            return Map(animal);
     }
 
     [HttpGet]
     [Route("/animals")]
-    public virtual async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery, Required] int limit, [FromQuery, Required] int offset, CancellationToken cancellationToken)
+    public virtual async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery, Required] int limit, [FromQuery, Required] int offset, CancellationToken cancellationToken)
     {
-       var animals = await getAnimalsUseCase.GetAnimals(limit: limit, offset: offset, cancellationToken: cancellationToken);
+        var animals = await getAnimalsUseCase.GetAnimals(limit: limit, offset: offset, cancellationToken: cancellationToken);
 
-        var body = new GetAnimalsResponse()
-        {
-            Animals = animals.Select(Animal.FromDomain)
-        };
-
-        return TypedResults.Ok(body);
+        return Map(limit: limit, offset: offset, useCaseResponse: animals.Select(Animal.FromDomain));
     }
 
     [HttpGet]
@@ -41,11 +36,10 @@ public abstract class AbstractAnimalsController1 : ControllerBase
     {
         var animal = await getAnimalUseCase.GetAnimal(animalId: animalId, cancellationToken: cancellationToken);
 
-        var body = new GetAnimalResponse()
-        {
-            Animal = Animal.FromDomain(animal)
-        };
-
-        return TypedResults.Ok(body);
+        return Map(animalId: animalId, useCaseResponse: Animal.FromDomain(animal));
     }
+
+    protected abstract Results<ForbidHttpResult, UnauthorizedHttpResult, Created> Map(Animal animal);
+    protected abstract Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalResponse>> Map(Guid animalId, Animal useCaseResponse);
+    protected abstract Results<ForbidHttpResult, UnauthorizedHttpResult, Ok<GetAnimalsResponse>> Map(int limit, int offset, IEnumerable<Animal> useCaseResponse);
 }

@@ -54,7 +54,7 @@ public interface AnimalsApi {
         value = "/animals/{animal_id}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<GetAnimalResponse> getAnimal(@PathVariable("animal_id") UUID animal_id);
+    ResponseEntity<GetAnimalResponse> getAnimal(@PathVariable("animal_id") UUID animalId);
 
     @Operation(
         operationId = "CreateAnimal",
@@ -74,5 +74,5 @@ public interface AnimalsApi {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<Void> createAnimal(@RequestBody AnimalDto content);
+    ResponseEntity<Void> createAnimal(@RequestBody AnimalDto animal);
 }

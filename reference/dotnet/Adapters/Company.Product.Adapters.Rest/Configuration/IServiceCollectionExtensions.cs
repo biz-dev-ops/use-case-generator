@@ -5,11 +5,6 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddAdaptersRest(this IServiceCollection services)
     {
         services
-            .Configure<MvcOptions>(options => {
-                options.Filters.Add(
-                    new NotFoundFilterAttribute()
-                );
-            })
             .ConfigureSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Product", Version = "v1" });
