@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 public class Cow extends Animal {
-    private String c;
+    private final String c;
 
     @Builder
     public Cow(UUID id, String sound, String c) {

@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.UUID;
 
 @RestController
-public class AnimalsController extends AnimalsApi {
+public class AnimalsController extends AbstractAnimalsApi {
 
     public AnimalsController(GetAnimalUseCase getAnimalUseCase, GetAnimalsUseCase getAnimalsUseCase, CreateAnimalUseCase createAnimalUseCase) {
         super(getAnimalUseCase, getAnimalsUseCase, createAnimalUseCase);

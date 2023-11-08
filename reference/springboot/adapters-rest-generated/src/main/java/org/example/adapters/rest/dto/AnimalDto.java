@@ -19,6 +19,7 @@ import java.util.UUID;
       "COW": "#/cow"
       "DOG": "#/dog"
  */
+
 @Data
 @Schema(name = "Animal")
 @JsonIgnoreProperties(
@@ -46,34 +47,19 @@ public abstract class AnimalDto {
 
     public static AnimalDto fromDomain(Animal domain) {
         return domain.visit(new AnimalVisitor<>() {
-
             @Override
             public AnimalDto visit(Dog dog) {
-                var dto = new DogDto();
-                dto.setA(dog.getA());
-                setAnimal(dto, dog);
-                return dto;
+                return DogDto.fromDomain(dog);
             }
 
             @Override
             public AnimalDto visit(Cat cat) {
-                var dto = new CatDto();
-                dto.setB(cat.getB());
-                setAnimal(dto, cat);
-                return dto;
+                return CatDto.fromDomain(cat);
             }
 
             @Override
             public AnimalDto visit(Cow cow) {
-                var dto = new CowDto();
-                dto.setC(cow.getC());
-                setAnimal(dto, cow);
-                return dto;
-            }
-
-            private void setAnimal(AnimalDto dto, Animal animal) {
-                dto.setAnimalId(animal.getAnimalId());
-                dto.setSound(animal.getSound());
+                return CowDto.fromDomain(cow);
             }
         });
     }
