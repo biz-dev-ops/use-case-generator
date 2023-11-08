@@ -16,7 +16,13 @@ namespace Company.Product.Domain.UseCases.Mocked
 
         public Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken)
         {   
-            return Task.FromResult(animalStore.Animals.First(a => a.AnimalId.Equals(animalId)));
+            var animal = animalStore.Animals.FirstOrDefault(a => a.AnimalId.Equals(animalId));
+
+            if(Equals(animal, default(Animal))) {
+                throw new AnimalDoesNotExistException(animalId);
+            }
+
+            return Task.FromResult(animal);
         }
     }
 }

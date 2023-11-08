@@ -1,21 +1,22 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-
 namespace Company.Product.Adapters.Rest.Controllers;
 
-public class AnimalsController : AbstractAnimalsController
+public class AnimalsController : AbstractAnimalsController1
 {
     public AnimalsController(ICreateAnimalUseCase createAnimalUseCase, IGetAnimalUseCase getAnimalUseCase, IGetAnimalsUseCase getAnimalsUseCase) 
         : base(createAnimalUseCase, getAnimalUseCase, getAnimalsUseCase)
     { }
 
-    public override async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, CreatedAtRoute>> CreateAnimal([FromBody, Required] Animal animal, CancellationToken cancellationToken)
+    public override async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, Created>> CreateAnimal([FromBody, Required] Animal animal, CancellationToken cancellationToken)
     {
         await base.CreateAnimal(animal, cancellationToken);
-        return TypedResults.CreatedAtRoute(routeName: nameof(GetAnimal), routeValues: new { animal.AnimalId });
+        var location = Url.Action(
+            action: nameof(GetAnimal),
+            values: new { animal.AnimalId }
+        );
+        return TypedResults.Created(location);
     }
 
-    public override async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery] int limit, [FromQuery] int offset, CancellationToken cancellationToken)
+    public override async Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalsResponse>>> GetAnimals([FromQuery, Required] int limit, [FromQuery, Required] int offset, CancellationToken cancellationToken)
     {
         var results = await base.GetAnimals(limit: limit, offset: offset, cancellationToken: cancellationToken);
 
@@ -32,7 +33,7 @@ public class AnimalsController : AbstractAnimalsController
         return results;
     }
 
-    public override Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalResponse>>> GetAnimal(Guid animalId, CancellationToken cancellationToken)
+    public override Task<Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalResponse>>> GetAnimal([FromRoute, Required] Guid animalId, CancellationToken cancellationToken)
     {
         return base.GetAnimal(animalId, cancellationToken);
     }

@@ -5,6 +5,11 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddAdaptersRest(this IServiceCollection services)
     {
         services
+            .Configure<MvcOptions>(options => {
+                options.Filters.Add(
+                    new NotFoundFilterAttribute()
+                );
+            })
             .ConfigureSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Product", Version = "v1" });
@@ -15,11 +20,10 @@ public static class IServiceCollectionExtensions
                 options.OperationFilter<Vernou.Swashbuckle.HttpResultsAdapter.HttpResultsOperationFilter>();
             });
 
+
         services
             .AddSwaggerGen()
-            .AddControllers(options => options.Filters.Add(
-                new NotFoundFilterAttribute()
-            ));
+            .AddControllers();
 
         return services;
     }

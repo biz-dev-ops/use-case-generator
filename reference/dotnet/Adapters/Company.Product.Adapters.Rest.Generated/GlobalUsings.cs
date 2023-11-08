@@ -2,6 +2,8 @@ global using Company.Product.Domain.UseCases;
 global using Company.Product.Adapters.Rest.Models;
 
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Http.HttpResults;
 global using System.Collections.Generic;
 global using System.ComponentModel.DataAnnotations;
 global using System;

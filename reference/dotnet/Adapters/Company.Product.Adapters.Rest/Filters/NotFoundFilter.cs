@@ -7,8 +7,7 @@ public class NotFoundFilterAttribute : ExceptionFilterAttribute
         base.OnException(context);
 
         var exceptionTypes = new Type[] {
-            typeof(InvalidOperationException),
-            typeof(KeyNotFoundException)
+            typeof(Domain.UseCases.Types.AnimalDoesNotExistException)
         };
 
         if (exceptionTypes.Contains(context.Exception.GetType()))

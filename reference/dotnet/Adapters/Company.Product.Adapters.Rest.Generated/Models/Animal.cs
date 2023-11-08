@@ -14,8 +14,15 @@ namespace Company.Product.Adapters.Rest.Models;
 [JsonDerivedType(typeof(Dog), "DOG")]
 public abstract class Animal
 {
-    public Guid AnimalId { get; set; }
-    public string Sound { get; set; }
+    private static AnimalVisitor visitor = new AnimalVisitor();
+    public Guid AnimalId { get; }
+    public string Sound { get; }
+
+    protected Animal(Guid animalId, string sound)
+    {
+        AnimalId = animalId;
+        Sound = sound;
+    }
 
     public abstract Domain.UseCases.Types.Animal ToDomain();
 
@@ -26,39 +33,15 @@ public abstract class Animal
             return null;
         }
 
-        return animal.Visit(new AnimalVisitor());
+        return animal.Visit(visitor);
     }
 
     private class AnimalVisitor : Domain.UseCases.Types.AnimalVisitor<Animal>
     {
-        public Animal Visit(Domain.UseCases.Types.Cat cat)
-        {
-            return new Cat()
-            {
-                AnimalId = cat.AnimalId,
-                Sound = cat.Sound,
-                B = cat.B
-            };
-        }
+        public Animal Visit(Domain.UseCases.Types.Cat cat) => Cat.FromDomain(cat);
 
-        public Animal Visit(Domain.UseCases.Types.Cow cow)
-        {
-            return new Cow()
-            {
-                AnimalId = cow.AnimalId,
-                Sound = cow.Sound,
-                C = cow.C
-            };
-        }
+        public Animal Visit(Domain.UseCases.Types.Cow cow) => Cow.FromDomain(cow);
 
-        public Animal Visit(Domain.UseCases.Types.Dog dog)
-        {
-            return new Dog()
-            {
-                AnimalId = dog.AnimalId,
-                Sound = dog.Sound,
-                A = dog.A
-            };
-        }
+        public Animal Visit(Domain.UseCases.Types.Dog dog) => Dog.FromDomain(dog);
     }
 }
