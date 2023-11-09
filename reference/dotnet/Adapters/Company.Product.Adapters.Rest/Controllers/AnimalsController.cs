@@ -20,11 +20,6 @@ public class AnimalsController : AbstractAnimalsController1
 
     protected override Results<ForbidHttpResult, UnauthorizedHttpResult, NotFound, Ok<GetAnimalResponse>> Map(Guid animalId, Animal useCaseResponse)
     {
-        if (Equals(useCaseResponse, default(Animal)))
-        {
-            return TypedResults.NotFound();
-        }
-
         return TypedResults.Ok(new GetAnimalResponse()
         {
             Animal = useCaseResponse

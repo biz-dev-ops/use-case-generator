@@ -1,3 +1,4 @@
+using Company.Product.Domain.UseCases.Exceptions;
 using Company.Product.Domain.UseCases.Types;
 using System;
 using System.Linq;
@@ -16,8 +17,14 @@ namespace Company.Product.Domain.UseCases.Mocked
 
         public Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken)
         {   
-            var animal = animalStore.Animals.FirstOrDefault(a => a.AnimalId.Equals(animalId));
-            return Task.FromResult(animal);
+            try
+            {
+            return Task.FromResult(animalStore.Animals.First(a => a.AnimalId.Equals(animalId)));
+            }
+            catch(InvalidOperationException)
+            {
+                throw new NotFoundException();
+            }
         }
     }
 }
