@@ -1,2 +1,12 @@
 type: integer
-example: 12
+examples:
+  first_page:
+    value: 0
+  second_page:
+    value: 1
+  no_page:
+    value: 2
+  not_authenticated_exception:
+    value: 3
+  not_authorized_exception:
+    value: 4

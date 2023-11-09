@@ -5,11 +5,24 @@ animal:
   properties:
     object_type:
       type: string
+      examples:
+        cat:
+          value: CAT
+        cow: 
+          value: COW
+        dog: 
+          value: DOG
     animal_id:
-      type: string
-      format: uuid
+      $ref: "animal_id.yml"
     sound:
       type: string
+      examples:
+        cat:
+          value: miauw
+        cow: 
+          value: moooow
+        dog: 
+          value: woef
   oneOf:
     - $ref: "#/dog"
     - $ref: "#/cat"
@@ -20,7 +33,7 @@ animal:
       "CAT": "#/cat"
       "COW": "#/cow"
       "DOG": "#/dog"
-
+      
 dog:
   allOf:
     - $ref: "#/animal"
@@ -28,6 +41,13 @@ dog:
       properties:
         a:
           type: string
+          examples:
+            cat:
+              value: 0e5f2084-4a82-4220-9be5-4a492f4768fe
+            cow: 
+              value: ac592261-3d21-4e01-a2e5-b791b89c7ccc
+            dog: 
+              value: 63da076c-674f-4f13-afe0-77484852927f
 
 cat:
   allOf:
@@ -36,6 +56,13 @@ cat:
       properties:
         b:
           type: string
+          examples:
+            cat:
+              value: 55194126-0f65-4f84-bd2f-aa3c085d983c
+            cow: 
+              value: 6f38ce37-b7d6-4d50-a286-4e1675c47b7c
+            dog: 
+              value: 64075ed8-355b-413e-88b4-dd827b6c9481
 
 cow:
   allOf:
@@ -44,3 +71,10 @@ cow:
       properties:
         c:
           type: string
+          examples:
+            cat:
+              value: 90627248-5d86-4d12-ae47-a8ede148b28f
+            cow: 
+              value: 42e733c3-7e2e-4273-a430-9ec23ecb6c2e
+            dog: 
+              value: 519275c4-62d8-4edb-acd9-4da9af28e425

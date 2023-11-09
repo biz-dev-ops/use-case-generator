@@ -6,6 +6,12 @@ using System.Threading;
 
 namespace Company.Product.Domain.UseCases
 {
+     /*
+    throws:
+        - NotAuthenticatedException
+        - NotAuthorizedException
+        - NotFoundException
+    */
     public interface IGetAnimalUseCase
     {
        Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken);

@@ -2,3 +2,14 @@ title: animals
 type: array
 items:
   $ref: "animal.yml#/animal"
+examples:
+  first_page:
+    value:
+      - object_type: CAT
+        animal_id: a5638176-8017-486b-a469-78efe52673f6
+  second_page:
+    value:
+      - object_type: COW
+        animal_id: 70f1ba88-be59-4e58-ae9e-46e74418b89d
+  no_page:
+    value: []

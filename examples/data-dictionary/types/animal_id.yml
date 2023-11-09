@@ -2,3 +2,16 @@ title: animal id
 type: string
 format: uuid
 description: An unique id identifing an animal.
+examples:
+  cat:
+    value: 33526453-ba04-4239-8335-f8cb7e33d14d
+  cow:
+    value: c500a1e4-8277-4a68-a4a0-fddee2abc947
+  dog:
+    value: d5378873-a815-42e0-be6e-bbcc6c8c8c1a
+  not_found_exception:
+    value: b28f780f-72f6-462c-8c48-c245d3959e80
+  not_authenticated_exception:
+    value: 60b66af5-b484-402f-9e33-c515cebc355d
+  not_authorized_exception:
+    value: b8e9ee94-5217-4a60-bc96-66ca60acbb9a

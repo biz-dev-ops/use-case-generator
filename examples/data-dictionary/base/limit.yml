@@ -1,5 +1,15 @@
 type: integer
-example: 10
 minimum: 1
 maximum: 100
 description: Limit the number of responses.
+examples:
+  first_page:
+    value: 10
+  second_page:
+    value: 20
+  no_page:
+    value: 5
+  not_authenticated_exception:
+    value: 4
+  not_authorized_exception:
+    value: 3
