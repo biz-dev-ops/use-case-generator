@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+namespace Company.Product.Adapters.Rest.Models;
 
-namespace Company.Product.Adapters.Rest.Models
+public class Response
 {
-    public class Response
-    { 
-        public IEnumerable<ResponseMessage> Messages { get; set; }
-    }
+    public IEnumerable<ResponseMessage> Messages { get; set; }
 }

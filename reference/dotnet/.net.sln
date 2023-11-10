@@ -11,25 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adapters", "Adapters", "{04
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Adapters.Rest", "Adapters\Company.Product.Adapters.Rest\Company.Product.Adapters.Rest.csproj", "{5521014A-4C68-40C0-9DE8-7AA50871F052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.UseCases.Mocks", "Domain\Company.Product.Domain.UseCases.Mocks\Company.Product.Domain.UseCases.Mocks.csproj", "{00C6ADE4-191F-437B-BE2C-02612B63B893}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.UseCases.Mocked", "Domain\Company.Product.Domain.UseCases.Mocked\Company.Product.Domain.UseCases.Mocked.csproj", "{00C6ADE4-191F-437B-BE2C-02612B63B893}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{D29CA249-4BFD-43D5-A690-BF13E68CADFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Applications.Mocked", "Applications\Company.Product.Applications.Mocked\Company.Product.Applications.Mocked.csproj", "{31433234-5793-4DA3-88E8-995AD5304EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Runtime.Mocked", "Runtime\Company.Product.Runtime.Mocked\Company.Product.Runtime.Mocked.csproj", "{31433234-5793-4DA3-88E8-995AD5304EF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Adapters.Rest.Generated", "Adapters\Company.Product.Adapters.Rest.Generated\Company.Product.Adapters.Rest.Generated.csproj", "{055AA5BB-8FA4-4673-8AE1-424CF0376E61}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.Core", "Domain\Company.Product.Domain.Core\Company.Product.Domain.Core.csproj", "{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BizDevOps", "BizDevOps", "{6230BEB7-E8B5-40B6-BE1A-49B8197930F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizDevOps.Core", "BizDevOps\BizDevOps.Core\BizDevOps.Core.csproj", "{4DA8431E-50AF-4091-8C5F-BFE13AF829B5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Product.Domain.Ports", "Domain\Company.Product.Domain.Ports\Company.Product.Domain.Ports.csproj", "{694AAC57-F23F-4D62-A8AA-4B04F61BF059}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizDevOps.Adapters.Json", "BizDevOps\BizDevOps.Adapters.Json\BizDevOps.Adapters.Json.csproj", "{6005B2FB-4096-4B6B-BEC3-65AFC50C67AD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizDevOps.Adapters.Swashbuckle", "BizDevOps\BizDevOps.Adapters.Swashbuckle\BizDevOps.Adapters.Swashbuckle.csproj", "{A3DD74BB-2319-41D1-952C-EE2F1D6E70BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,26 +48,6 @@ Global
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DA8431E-50AF-4091-8C5F-BFE13AF829B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DA8431E-50AF-4091-8C5F-BFE13AF829B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DA8431E-50AF-4091-8C5F-BFE13AF829B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DA8431E-50AF-4091-8C5F-BFE13AF829B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{694AAC57-F23F-4D62-A8AA-4B04F61BF059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{694AAC57-F23F-4D62-A8AA-4B04F61BF059}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{694AAC57-F23F-4D62-A8AA-4B04F61BF059}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{694AAC57-F23F-4D62-A8AA-4B04F61BF059}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6005B2FB-4096-4B6B-BEC3-65AFC50C67AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6005B2FB-4096-4B6B-BEC3-65AFC50C67AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6005B2FB-4096-4B6B-BEC3-65AFC50C67AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6005B2FB-4096-4B6B-BEC3-65AFC50C67AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3DD74BB-2319-41D1-952C-EE2F1D6E70BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3DD74BB-2319-41D1-952C-EE2F1D6E70BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3DD74BB-2319-41D1-952C-EE2F1D6E70BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3DD74BB-2319-41D1-952C-EE2F1D6E70BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0C18CD3B-97D9-4EB5-B77C-B37BFD12E606} = {D9189B11-0A93-4384-839F-E7D7359C6478}
@@ -87,10 +55,5 @@ Global
 		{00C6ADE4-191F-437B-BE2C-02612B63B893} = {D9189B11-0A93-4384-839F-E7D7359C6478}
 		{31433234-5793-4DA3-88E8-995AD5304EF5} = {D29CA249-4BFD-43D5-A690-BF13E68CADFF}
 		{055AA5BB-8FA4-4673-8AE1-424CF0376E61} = {0429A8B8-DFB9-42E7-B889-AE3009D8ED43}
-		{0D37EB9C-50C4-413B-9E2E-EE189BCF13C6} = {D9189B11-0A93-4384-839F-E7D7359C6478}
-		{4DA8431E-50AF-4091-8C5F-BFE13AF829B5} = {6230BEB7-E8B5-40B6-BE1A-49B8197930F0}
-		{694AAC57-F23F-4D62-A8AA-4B04F61BF059} = {D9189B11-0A93-4384-839F-E7D7359C6478}
-		{6005B2FB-4096-4B6B-BEC3-65AFC50C67AD} = {6230BEB7-E8B5-40B6-BE1A-49B8197930F0}
-		{A3DD74BB-2319-41D1-952C-EE2F1D6E70BB} = {6230BEB7-E8B5-40B6-BE1A-49B8197930F0}
 	EndGlobalSection
 EndGlobal

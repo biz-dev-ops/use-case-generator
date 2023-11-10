@@ -1,16 +1,19 @@
 using Company.Product.Domain.UseCases.Types;
 
-using BizDevOps.Core.Attributes;
 using System.Threading.Tasks;
 using System;
 using System.Threading;
 
 namespace Company.Product.Domain.UseCases
 {
-    [UseCase]
-    [Query]
+     /*
+    throws:
+        - NotAuthenticatedException
+        - NotAuthorizedException
+        - NotFoundException
+    */
     public interface IGetAnimalUseCase
     {
-       Task<Animal> Execute(Guid animalId, CancellationToken cancellationToken);
+       Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken);
     }
 }

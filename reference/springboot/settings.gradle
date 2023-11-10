@@ -1,0 +1,8 @@
+rootProject.name = 'demo'
+include 'adapters-rest'
+include 'adapters-rest-generated'
+include 'dependencies'
+include 'domain-usecases'
+include 'domain-usecases-mocked'
+include 'runtime-mocked'
+

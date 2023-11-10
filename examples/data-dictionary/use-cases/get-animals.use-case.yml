@@ -1,6 +1,4 @@
 parameters:
-  filter:
-    $ref: "../types/string-type.yml"
   limit:
     $ref: "../base/limit.yml"
   offset:

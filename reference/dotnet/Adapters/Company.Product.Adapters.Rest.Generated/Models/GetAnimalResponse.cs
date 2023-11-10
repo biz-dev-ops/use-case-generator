@@ -1,9 +1,6 @@
-using Company.Product.Domain.UseCases.Types;
+namespace Company.Product.Adapters.Rest.Models;
 
-namespace Company.Product.Adapters.Rest.Models
+public class GetAnimalResponse : Response
 {
-    public class GetAnimalResponse : Response
-    { 
-        public Animal Animal { get; set; }
-    }
+    public Animal Animal { get; set; }
 }
