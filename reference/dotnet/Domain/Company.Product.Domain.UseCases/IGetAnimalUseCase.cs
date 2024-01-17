@@ -1,4 +1,5 @@
 using Company.Product.Domain.UseCases.Types;
+using Company.Product.Domain.UseCases.Exceptions;
 
 using System.Threading.Tasks;
 using System;
@@ -6,14 +7,15 @@ using System.Threading;
 
 namespace Company.Product.Domain.UseCases
 {
-     /*
-    throws:
-        - NotAuthenticatedException
-        - NotAuthorizedException
-        - NotFoundException
-    */
     public interface IGetAnimalUseCase
     {
-       Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken);
+        /// <summary>Use case description.</summary>
+        /// <param name="animalId">Parameter description.</param>
+        /// <param name="cancellationToken">Parameter description.</param>
+        /// <returns cref="Animal">Parameter description.</returns>
+        /// <exception cref="NotAuthenticatedException">Exception description.</exception>
+        /// <exception cref="NotAuthorizedException">Exception description.</exception>
+        /// <exception cref="NotFoundException">Exception description.</exception>
+        Task<Animal> GetAnimal(Guid animalId, CancellationToken cancellationToken);
     }
 }
